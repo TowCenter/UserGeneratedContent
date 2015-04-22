@@ -1,14 +1,328 @@
+\documentclass[symmetric, notoc, nobib]{towcenter-book}
+
+\hypersetup{colorlinks}% uncomment this line if you prefer colored hyperlinks (e.g., for onscreen viewing)
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[american]{babel}
+\usepackage[autostyle]{csquotes}
+\usepackage{endnotes}
+\usepackage[notes15,strict,backend=biber,autolang=other,%
+bibencoding=latin1,notetype=endonly]{biblatex-chicago}
+%%\usepackage[osf]{mathpazo}
+%\renewcommand*{\rmdefault}{fgn}% The font (gentium) used for pdf
+\usepackage{ifthen}
+\usepackage{setspace}
+%\usepackage{vmargin} \setpapersize{A4}
+%\setmarginsrb{1in}{20pt}{1in}{.5in}{1pt}{2pt}{0pt}{2mm}
+%\renewcommand{\sfdefault}{phv}
+%\renewcommand{\ttdefault}{pcr}
+\renewcommand*{\biburlsetup}{%
+  \Urlmuskip=0mu plus 2mu\relax
+  \mathchardef\UrlBreakPenalty=200\relax
+  \mathchardef\UrlBigBreakPenalty=100\relax
+  \mathchardef\UrlEmergencyPenalty=9000\relax
+  \appto\UrlSpecials{%
+    \do\0{\mathchar`\0\penalty\UrlEmergencyPenalty}%
+    \do\1{\mathchar`\1\penalty\UrlEmergencyPenalty}%
+    \do\2{\mathchar`\2\penalty\UrlEmergencyPenalty}%
+    \do\3{\mathchar`\3\penalty\UrlEmergencyPenalty}%
+    \do\4{\mathchar`\4\penalty\UrlEmergencyPenalty}%
+    \do\5{\mathchar`\5\penalty\UrlEmergencyPenalty}%
+    \do\6{\mathchar`\6\penalty\UrlEmergencyPenalty}%
+    \do\7{\mathchar`\7\penalty\UrlEmergencyPenalty}%
+    \do\8{\mathchar`\8\penalty\UrlEmergencyPenalty}%
+    \do\9{\mathchar`\9\penalty\UrlEmergencyPenalty}}%
+  \def\UrlBreaks{%
+    \do\.\do\@\do\/\do\\\do\!\do\_\do\|\do\;\do\>\do\]\do\)\do\}%
+    \do\,\do\?\do\'\do\+\do\=\do\#\do\$\do\&\do\*\do\^\do\"}%
+  \def\UrlBigBreaks{\do\:\do\-}}
+\usepackage{url}
+\urlstyle{rm}
+\appto\bibsetup{\sloppy}
+%\appto\biburlsetup{\Urlmuskip=0mu plus 4mu\relax}
+\setlength{\dimen\footins}{9.5in}
+\renewcommand{\notesname}{Citations}
+\bibliography{TrafficFactories}
+
+
+\geometry{a5paper,left=20mm,top=15mm,headsep=1\baselineskip,textwidth=105mm,textheight=180mm,headheight=\baselineskip,marginparwidth=10mm, marginparsep=5mm}
+
+%%
+% Adding setspace to tighten leading on margin notes
+\usepackage{setspace}
+
+%%
+% Adding back marginnote functionality that I've stripped from tufte-common.def in the process of creating towcenter-common.def
+\usepackage{marginnote}
+\renewcommand{\marginnote}[1]{{\marginpar{\raggedright\footnotesize
+\setstretch{1.025}%
+#1}}}
+
+%%
+% Setting the footnote style to roman numerals in this case
+\renewcommand{\thefootnote}{\roman{footnote}}
+
+%%
+% Resetting the footnote counter every page for clarity (I think)
+%\usepackage{perpage} %the perpage package
+%\MakePerPage{footnote} %the perpage package command
+
+%%
+% Resetting footnote counters every section?!
+\makeatletter
+\@addtoreset{footnote}{section}
+\makeatother
+
+
+
+%%
+% Book metadata
+\title{Sample Tow Center printed report}
+\author{Susan E. McGregor - susanemcg}
+\publisher{Tow Center for Digital Journalism}
+
+
+% use fontspec package and set titles to Georgia
+\usepackage{fontspec}
+\newfontfamily\titlefont{Georgia}
+
+% add color package and define appropriate blues for title page
+\usepackage{color}
+\definecolor{darkblue}{RGB}{17,94,170}
+\definecolor{lightblue}{RGB}{188,229,245}
+
+% framed helps with graphics
+\usepackage{framed}
+
+% suppresses names and figure numbers on graphics
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@caption}
+  {\noindent\csname fnum@#1\endcsname: \ignorespaces}
+  {}
+  {}{}
+\makeatother
+
+%%
+% Just some sample text
+\usepackage{lipsum}
+
+%%
+% For nicely typeset tabular material
+\usepackage{booktabs}
+
+%%
+% For graphics / images
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+%%
+% Prints argument within hanging parentheses (i.e., parentheses that take
+% up no horizontal space).  Useful in tabular environments.
+\newcommand{\hangp}[1]{\makebox[0pt][r]{(}#1\makebox[0pt][l]{)}}
+
+%%
+% Prints an asterisk that takes up no horizontal space.
+% Useful in tabular environments.
+\newcommand{\hangstar}{\makebox[0pt][l]{*}}
+
+%%
+% Prints a trailing space in a smart way.
+\usepackage{xspace}
+
+
+% Prints the month name (e.g., January) and the year (e.g., 2008)
+\newcommand{\monthyear}{%
+  \ifcase\month\or January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi\space\number\year
+}
+
+
+% Prints an epigraph and speaker in sans serif, all-caps type.
+\newcommand{\openepigraph}[2]{%
+  %\sffamily\fontsize{14}{16}\selectfont
+  \begin{fullwidth}
+  \sffamily\large
+  \begin{doublespace}
+  \noindent\allcaps{#1}\\% epigraph
+  \noindent\allcaps{#2}% author
+  \end{doublespace}
+  \end{fullwidth}
+}
+
+% Inserts a blank page
+\newcommand{\blankpage}{\newpage\hbox{}\thispagestyle{empty}\newpage}
+
+\usepackage{units}
+
+% Typesets the font size, leading, and measure in the form of 10/12x26 pc.
+\newcommand{\measure}[3]{#1/#2$\times$\unit[#3]{pc}}
+
+% Macros for typesetting the documentation
+\newcommand{\hlred}[1]{\textcolor{Maroon}{#1}}% prints in red
+\newcommand{\hangleft}[1]{\makebox[0pt][r]{#1}}
+\newcommand{\hairsp}{\hspace{1pt}}% hair space
+\newcommand{\hquad}{\hskip0.5em\relax}% half quad space
+\newcommand{\TODO}{\textcolor{red}{\bf TODO!}\xspace}
+\newcommand{\ie}{\textit{i.\hairsp{}e.}\xspace}
+\newcommand{\eg}{\textit{e.\hairsp{}g.}\xspace}
+\newcommand{\na}{\quad--}% used in tables for N/A cells
+\providecommand{\XeLaTeX}{X\lower.5ex\hbox{\kern-0.15em\reflectbox{E}}\kern-0.1em\LaTeX}
+\newcommand{\tXeLaTeX}{\XeLaTeX\index{XeLaTeX@\protect\XeLaTeX}}
+% \index{\texttt{\textbackslash xyz}@\hangleft{\texttt{\textbackslash}}\texttt{xyz}}
+\newcommand{\towcenterbs}{\symbol{'134}}% a backslash in tt type in OT1/T1
+\newcommand{\doccmdnoindex}[2][]{\texttt{\towcenterbs#2}}% command name -- adds backslash automatically (and doesn't add cmd to the index)
+\newcommand{\doccmddef}[2][]{%
+  \hlred{\texttt{\towcenterbs#2}}\label{cmd:#2}%
+  \ifthenelse{\isempty{#1}}%
+    {% add the command to the index
+      \index{#2 command@\protect\hangleft{\texttt{\towcenterbs}}\texttt{#2}}% command name
+    }%
+    {% add the command and package to the index
+      \index{#2 command@\protect\hangleft{\texttt{\towcenterbs}}\texttt{#2} (\texttt{#1} package)}% command name
+      \index{#1 package@\texttt{#1} package}\index{packages!#1@\texttt{#1}}% package name
+    }%
+}% command name -- adds backslash automatically
+\newcommand{\doccmd}[2][]{%
+  \texttt{\towcenterbs#2}%
+  \ifthenelse{\isempty{#1}}%
+    {% add the command to the index
+      \index{#2 command@\protect\hangleft{\texttt{\towcenterbs}}\texttt{#2}}% command name
+    }%
+    {% add the command and package to the index
+      \index{#2 command@\protect\hangleft{\texttt{\towcenterbs}}\texttt{#2} (\texttt{#1} package)}% command name
+      \index{#1 package@\texttt{#1} package}\index{packages!#1@\texttt{#1}}% package name
+    }%
+}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quotation}\ttfamily\parskip0pt\parindent0pt\ignorespaces}{\end{quotation}}% command specification environment
+\newcommand{\docenv}[1]{\texttt{#1}\index{#1 environment@\texttt{#1} environment}\index{environments!#1@\texttt{#1}}}% environment name
+\newcommand{\docenvdef}[1]{\hlred{\texttt{#1}}\label{env:#1}\index{#1 environment@\texttt{#1} environment}\index{environments!#1@\texttt{#1}}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}\index{#1 package@\texttt{#1} package}\index{packages!#1@\texttt{#1}}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% document class option name
+\newcommand{\docclsoptdef}[1]{\hlred{\texttt{#1}}\label{clsopt:#1}\index{#1 class option@\texttt{#1} class option}\index{class options!#1@\texttt{#1}}}% document class option name defined
+\newcommand{\docmsg}[2]{\bigskip\begin{fullwidth}\noindent\ttfamily#1\end{fullwidth}\medskip\par\noindent#2}
+\newcommand{\docfilehook}[2]{\texttt{#1}\index{file hooks!#2}\index{#1@\texttt{#1}}}
+\newcommand{\doccounter}[1]{\texttt{#1}\index{#1 counter@\texttt{#1} counter}}
+
+% Generates the index
+\usepackage{makeidx}
+\makeindex
+
+\begin{document}
+
+% Front matter
+\frontmatter
+
+% r.1 blank page
+\blankpage
+
+% l.1 blank page
+\blankpage
+
+% r.3 full title page
+%\maketitle
+%Using minipages to mimic existing layout for title page
+
+\begin{minipage}[t][1\textheight]{0.40\textwidth}
+\vspace{0pt}
+\begin{flushleft}
+\small\textsf{Tow Center for Digital Journalism\\
+A Tow/Knight Report}
+\end{flushleft}
+\vfill
+\includegraphics[width=.4\textwidth]{graphics/ColumbiaLogo.pdf}
+\end{minipage}%
+\hfill
+\begin{minipage}[t][1\textheight]{70mm}
+\vspace{0pt}
+\Huge\textcolor{darkblue}{\textbf{{\titlefont
+TRAFFIC \\FACTORIES: 
+Metrics at Chartbeat, Gawker Media,
+\\and \textit{The New York Times}
+\textcolor{lightblue}{
+CAITLIN\\
+PETRE\\
+}
+}
+}}
+\vfill
+\small\textsf{Funded by the Tow Foundation\\
+and the John S. and James L. Knight Foundation}
+\end{minipage}%
+
+\blankpage
+
+% v.4 copyright page
+\newpage
+\null
+\vfill
+
+\textsf{\textbf{Acknowledgements}} 
+\\[1.0cm]
+\noindent\textit{I owe an enormous debt of gratitude to those employees of Chartbeat,} The New York Times\textit{, and 
+Gawker Media who shared their time, insights, and experiences with me. Their generosity, 
+patience, and thoughtfulness made this research possible. I am especially grateful to those who 
+took the time to speak with me on multiple occasions, answered many questions over IM and 
+email, let me shadow them, or otherwise went far above and beyond to help me understand their 
+work. I wish I could acknowledge them by name, but hopefully they know who they are.
+}\\[0.5cm]
+\noindent\textit{I would also like to thank the team at the Tow Center for the tremendous support\textemdash material, 
+intellectual, logistical, and moral. Caffeinated conversations with Emily Bell contributed vitally 
+to the initial development of this project; her continued input and willingness to make 
+introductions enabled me to see it to completion. Taylor Owen helped me think through 
+challenges at every stage\textemdash from case study selection to site access to data analysis. Fergus Pitt's 
+incisive comments on drafts led to a smarter, richer, and more eloquent report. Abigail Ronck's 
+meticulous editing helped scrub the text of errors, awkward phrasings, and passive voice. Susan 
+McGregor seamlessly facilitated the publication process. Lauren Mack and Elizabeth Boylan 
+were unfailingly organized and helpful in coordinating various practical aspects of the research. }\\[0.5cm]
+\noindent\textit{In addition to being my go-to fount of wisdom about journalism studies and organizational 
+ethnography, C.W. Anderson provided thoughtful critique and indispensable guidance on the 
+report's structure, analysis, and recommendations. }\\[0.5cm]
+\noindent\textit{I'm grateful to my colleagues and mentors at the Department of Sociology at NYU\textemdash especially 
+Eric Klinenberg, my dissertation advisor, who gave characteristically perceptive comments that 
+substantially strengthened my Tow proposal.}\\[0.5cm]
+\noindent\textit{
+Finally, thank you to Ari Brand, Ann Banks, and Peter Petre for all that you do (and there is so 
+very much) to support me. 
+}\\[0.5cm]
+
+
+\noindent\textit{\monthyear}
+
+% r.5 contents
+\tableofcontents
+
+
+% r.7 introduction
+\cleardoublepage
+
+
+%%
+% Start the main matter (normal chapters)
+\mainmatter
+
 \chapter{Acknowledgements}
-\textit{First, we would like to thank the Tow Center for Digital Journalism at Columbia University for supporting this project—Emily Bell, Taylor Owen, and Lauren Mack in particular. With their help, a crazy idea over a Skype call has become something that will actually provide the news industry with concrete numbers about its use of user-generated content. We hope the research will act as a foundation for conversations and will provide support and suggestions for best practices. We would also like to thank the international cooperation team at NHK in Tokyo for recording three weeks of its broadcasts for us. John, Sam's stepfather, was another who helped us by recording CNN when we had lost all hope of capturing it from our respective locations in Istanbul and Málaga, Spain. We would also like to thank many different people for conversations we've had over the last eight months at conferences, in coffee shops, and down the pub. It feels like we've been thinking about and talking about UGC constantly for the past year. Every one of those talks has shaped an aspect of this report. And, finally, thanks to all those who took time out of their schedules to talk to us about UGC and how they use it in their news bulletins. The interviews were newsworthy and thoughtful throughout.}
+\textit{First, we would like to thank the Tow Center for Digital Journalism at Columbia University for supporting this project‚ÄîEmily Bell, Taylor Owen, and Lauren Mack in particular. With their help, a crazy idea over a Skype call has become something that will actually provide the news industry with concrete numbers about its use of user-generated content. We hope the research will act as a foundation for conversations and will provide support and suggestions for best practices. We would also like to thank the international cooperation team at NHK in Tokyo for recording three weeks of its broadcasts for us. John, Sam's stepfather, was another who helped us by recording CNN when we had lost all hope of capturing it from our respective locations in Istanbul and M√°laga, Spain. We would also like to thank many different people for conversations we've had over the last eight months at conferences, in coffee shops, and down the pub. It feels like we've been thinking about and talking about UGC constantly for the past year. Every one of those talks has shaped an aspect of this report. And, finally, thanks to all those who took time out of their schedules to talk to us about UGC and how they use it in their news bulletins. The interviews were newsworthy and thoughtful throughout.}
 
 \chapter{Executive Summary}
 \subsection{Aim of Research}
-\begin{The aim of this research is to provide the first comprehensive report about the use of user-generated content (UGC) among broadcast news channels. Its objectives are to understand how much UGC is used on air and online by these channels, why editors and journalists choose to use it, and under what conditions it is employed. The study intends to provide a holistic understanding of the use of UGC by international broadcast news channels.
+The aim of this research is to provide the first comprehensive report about the use of user-generated content (UGC) among broadcast news channels. Its objectives are to understand how much UGC is used on air and online by these channels, why editors and journalists choose to use it, and under what conditions it is employed. The study intends to provide a holistic understanding of the use of UGC by international broadcast news channels.
 Methodology
 This research was carried out in two phases. The first involved an in-depth, quantitative content analysis examining when and how eight international news broadcasters use UGC. For this part of the research we analyzed a total of 1,164 hours of TV output and 2,254 Web pages, coding them according to parameters intended to answer the research questions. The second phase of the research was entirely qualitative. It was designed to build upon the first phase by providing a detailed overview of the professional practices that underpin the collection, verification, and distribution of UGC. To achieve this we conducted 64 interviews with news managers, editors, and journalists from 38 news organizations based in 24 countries around the world. This report brings together both phases of the research to provide a detailed overview of the key findings.
 
 \title{Research Questions}
-\begin{This research was designed to answer two key research questions: 
+This research was designed to answer two key research questions: 
 \begin{enumerate}
 \item When and how is UGC used by broadcast news organizations,
 on air as well as online?
@@ -32,6 +346,7 @@ Web output, but troubling practices exist across both platforms.
 opportunities for integrating UGC into news output like
 live blogs and topic pages.
 \end{itemize}
+\end{enumerate}
 
 The key findings to emerge from our interviews were:
 \begin{itemize}
@@ -102,15 +417,15 @@ who works on a UGC desk, admitted hearing people once say, ``Why
 would we want to use this? Look at the quality of mobile footage; who would
 be interested in it? Now when a major story happens, everyone is beating at
 the UGC door. We're the first port of call.''
-While citizen journalists, or nonprofessionals with an interest in documenting news events, have taken some of these pictures and videos, indeed many have simply been shot by ``accidental journalists''—people with a camera or smartphone on hand who happened to be in the right (or wrong) place at the right (or wrong) time.
+While citizen journalists, or nonprofessionals with an interest in documenting news events, have taken some of these pictures and videos, indeed many have simply been shot by ``accidental journalists''‚Äîpeople with a camera or smartphone on hand who happened to be in the right (or wrong) place at the right (or wrong) time.
 
-Rarely do these people recognize the value of their footage. Instead of contacting news organizations directly, they want to share what they have seen with friends and family via the social Web. As Anthony De Rosa (ex-social media editor for Reuters and now editor-in-chief for Circa) writes, ``The first thought of the [uploader] is usually not: ‘I need to share this with a major TV news network,' because they don't care about traditional television news networks or more likely they've never heard of them. They have, however, heard of the Internet and that's where they decide to share it with the world.''^{\href{#endnotes}{1}} Amateur content-capturers have their own audiences to think
+Rarely do these people recognize the value of their footage. Instead of contacting news organizations directly, they want to share what they have seen with friends and family via the social Web. As Anthony De Rosa (ex-social media editor for Reuters and now editor-in-chief for Circa) writes, ``The first thought of the [uploader] is usually not: ‚ÄòI need to share this with a major TV news network,' because they don't care about traditional television news networks or more likely they've never heard of them. They have, however, heard of the Internet and that's where they decide to share it with the world.''{\href{#endnotes}{1}} Amateur content-capturers have their own audiences to think
 about now.
 Still, the news media is able to find UGC, and they do so in droves. Although
 this revolution has been acknowledged, no hard numbers exist about the
 amount of UGC being used by broadcasters. Furthermore, while journalists
-at conferences talk about these processes publicly, there haven't been any—
-even off-the-record—conversations we've been privy to about the reality of
+at conferences talk about these processes publicly, there haven't been any‚Äî
+even off-the-record‚Äîconversations we've been privy to about the reality of
 handling UGC in a breaking news context.
 The other area we were compelled to explore involved journalists' perception
 of UGC. Previous academic studies have concluded that journalists
@@ -120,9 +435,9 @@ collaborative activity. Instead, they set the agenda and use content
 supplied by their audiences when they feel it is relevant.
 Our research was therefore designed around two core questions:
 \begin{enumerate}
-1) How is UGC used by broadcast news organizations, on air as
+\item How is UGC used by broadcast news organizations, on air as
 well as online?
-2) Does the integration of UGC into output cause any particular
+\item Does the integration of UGC into output cause any particular
 issues for news organizations? What are those issues and how do
 they handle them?
 \end{enumerate}
@@ -138,10 +453,10 @@ Overall, the majority of the 40 newsrooms included in this study, located
 all across the world, use UGC in their output. For bigger newsrooms, especially rolling news channels, UGC features almost daily. Crucially, UGC is used when other images are not available, either from a newsroom's own
 staff or the news agencies with whom they contract. However, there is a
 very small, but increasing number of newsrooms that see the benefit of
-investing in UGC to tell different or better stories—and this is starting to
+investing in UGC to tell different or better stories‚Äîand this is starting to
 have an impact.
 There is a very significant reliance on news agencies to discover, verify,
-and clear the rights for UGC—especially for foreign stories. The number
+and clear the rights for UGC‚Äîespecially for foreign stories. The number
 of newsrooms that have dedicated staff for these processes is still
 relatively small.
 Most interesting, perhaps, is how disconnected most news managers are to
@@ -151,12 +466,12 @@ way than do their managers.
 The journalists we spoke to about the integration of UGC raised six main
 areas of concern:
 \begin{enumerate}
-1) WORKFLOW: Should newsrooms have staff dedicated to
+\item WORKFLOW: Should newsrooms have staff dedicated to
 the processing of UGC, or should the task be shared across
 the newsroom?
-2) VERIFICATION: Verifying UGC is considered a most pressing
+\item VERIFICATION: Verifying UGC is considered a most pressing
 challenge, particularly in the pressured context of breaking news.
-3) RIGHTS CLEARANCE: The legal issues associated with copyright
+\item RIGHTS CLEARANCE: The legal issues associated with copyright
 law concern everyone. Broadcasters that extract UGC from
 social networks in order to use it on air worry about breaking
 terms and conditions, whereas online journalists worry about
@@ -167,7 +482,7 @@ of the social networks).
 necessary, with the added complication that some news
 agencies that supply UGC do not provide any information about
 the uploader.
-5) LABELING: Labeling UGC is also a concern. While accidental
+\item LABELING: Labeling UGC is also a concern. While accidental
 journalists, or eyewitnesses with camera phones, create some
 of the UGC used by broadcasters, people with a specific agenda
 film a great deal more. That could be an activist group in Syria
@@ -175,7 +490,7 @@ or an aid worker in the Central African Republic. Newsrooms
 know that for reasons of transparency it is important to
 label UGC, but they are not sure how to do this appropriately
 and consistently.
-6) RESPONSIBILITIES: In the specific context of UGC, the ethical
+\item RESPONSIBILITIES: In the specific context of UGC, the ethical
 responsibilities newsrooms must uphold for the uploaders,
 the audience, and their own staff are numerous.
 \end{enumerate}
@@ -255,7 +570,7 @@ ever was because everybody has a camera.'' Frank Zapruder's film of the
 assassination of President Kennedy and George Holliday's shaky footage of
 the beating of Rodney King remind us that eyewitness pictures were newsworthy
 long before the famous picture of the plane landing on the Hudson
-river—the one often used as the definitive example of UGC.
+river‚Äîthe one often used as the definitive example of UGC.
 The history of user-generated content within the mainstream broadcasting
 context usually begins with the London bombings in July of 2005. This was
 the first time the BBC led a bulletin with imagery not filmed by a BBC camera,
@@ -266,7 +581,7 @@ the newsroom.
 However, according to Patricia Whitehorne, who was part of that very small
 UGC project, the tsunami on December 26, 2004 was the first occasion on
 which UGC was sought in a systematic way. ``That was the first time that the
-News Channel [then News 24] was beating on our door, saying, ‘We need
+News Channel [then News 24] was beating on our door, saying, ‚ÄòWe need
 photos, we need eyewitnesses, we need emails.' They sent a correspondent
 to do a package about the UGC that was coming in from the tsunami, and I
 think that was the first time they really saw the value, or the potential of it.''
@@ -274,24 +589,24 @@ However, Whitehorne admitted that it took a while for attitudes to change.
 ``I remember right at the beginning, having to go to different editorial meet
 ings, just trying to convince people of the value of UGC, explaining what it
 is. There always used to be a joke, that whenever we said UGC, they'd say,
-‘Isn't that a chain of cinema?' It took a lot of explaining.''
+‚ÄòIsn't that a chain of cinema?' It took a lot of explaining.''
 In terms of understanding the trajectory of newsroom attitudes toward
 UGC, numerous interviewees cited the Iranian protests in June of 2009 as
 a watershed moment. John Ludlum from Reuters said, ``That was one of the
 first times that we started to see [UGC] and took tentative steps towards
 using it.'' Mark Little, then a foreign correspondent at the Irish public broadcaster
-RTÉ, talked passionately of his personal frustration at not being sent
+RT√â, talked passionately of his personal frustration at not being sent
 to Tehran to cover the election in 2009. He quickly realized, however, that
 he was able to access vast amounts of information via Twitter and YouTube,
 although he struggled to know what to trust. As a result he left his job at
-RTÉ and founded the social news agency Storyful.
+RT√â and founded the social news agency Storyful.
 According to most of our interviewees, 2011 was the year that UGC went
 mainstream across newsrooms. As Chris Hamilton, manager of the BBC's
 UGC Hub, explained:
 [The year] 2011 was a very big watershed. Obviously you had the
 Arab Spring getting under way, but that was also the same year as
 the Japan tsunami, the riots in England, and the massacre in Norway.
-All of those were big, really mass participation events… and news
+All of those were big, really mass participation events‚Ä¶ and news
 organizations were able to take advantage of that to tell those stories
 better than they could have told them before.
 Our research revealed the Syrian conflict as the main impetus for UGC use
@@ -307,7 +622,7 @@ And certainly, learning how to use UGC from Syria has had an inevitable
 impact on the way UGC is used for other stories. As Geertje Bal from the
 foreign desk at VRT in Belgium explained, ``People are using UGC more
 for other stories because the Syria conflict opened the way. In the past you
-would say, ‘No, no, no, we don't do that with amateur material, but it has
+would say, ‚ÄòNo, no, no, we don't do that with amateur material, but it has
 become more accepted because we had to do it for Syria.''
 The impact of mobile-phone penetration, with higher quality built-in cameras,
 combined with improvements in connectivity, cheaper data, and the
@@ -316,7 +631,7 @@ usable eyewitness footage will simply become more of a regular occurrence.
 Derl McCrudden, head of newsgathering for AP Television News, explained
 this cycle:
 I think the use of UGC has inevitably gone up because we're in a more
-connected world. More of us have phones… and therefore more people
+connected world. More of us have phones‚Ä¶ and therefore more people
 become accidental eyewitnesses to events. And the more that
 happens, the more demand there is for the content because you capture
 what people want. So the more we look for it, and then filter it,
@@ -325,7 +640,7 @@ put out incrementally.
 A significant development in the past couple of years is journalists filming
 content themselves on their smartphones and uploading it to social networks.
 One news organization admitted deciding it needed a specific term
-for this type of content, so now call it JGC—journalist-generated content.
+for this type of content, so now call it JGC‚Äîjournalist-generated content.
 There is also a growing phenomenon of aid workers and field staff using their
 phones to create content to share widely on social networks. By capturing
 pictures of refugees crossing the Jordanian border, or people sheltering at
@@ -342,11 +657,11 @@ Syria, the humanitarians capturing these pictures are not accidental journalists
 They have their own motivations, and this should also be explained
 to the audience.
 Definition
-The phrase user-generated content has always been an unpopular one.^{\href{#endnotes}{2}}
+The phrase user-generated content has always been an unpopular one.{\href{#endnotes}{2}}
 However, no one has managed to create an alternative that adequately
 describes the phenomenon. In research conducted by one of this report's
 co-authors about UGC in 2008, a typology of five different types of UGC
-was developed,^{\href{#endnotes}{3}} which differentiated breaking news footage from community
+was developed,{\href{#endnotes}{3}} which differentiated breaking news footage from community
 journalism initiatives and user-generated opinion and comment.
 Again, for the purposes of this study, we define UGC as photographs and
 videos captured by people who are not professional journalists and who
@@ -378,7 +693,7 @@ with objectives to understand when and how UGC is integrated, how it is
 described to the audience, and whether the uploader is acknowledged and
 credited. Each individual piece of UGC was analyzed for these characteristics.
 We presented our original quantitative data set and analysis in a standalone
-Part I report—but the main findings are included in this final report
+Part I report‚Äîbut the main findings are included in this final report
 as well.
 The second phase of our research involved extended interviews with 64 news
 managers, editors, and journalists from 40 news organizations, located in
@@ -395,7 +710,7 @@ of footage and find relatively small amounts. The sample was designed to
 include channels from around the world with an international audience (the
 target audience of the channel was cross-border, which therefore excluded
 major 24-hour channels like Sky News in the United Kingdom, for instance).
-Our intention was to analyze seven full days of output—168 hours from
+Our intention was to analyze seven full days of output‚Äî168 hours from
 each of the eight channels, totaling 1,344 hours.
 The inbuilt repetition of rolling television news meant we didn't want to
 analyze 24 hours of output from the same day, so we sampled eight hours
@@ -423,7 +738,7 @@ in fact, even during five days of output from Al Jazeera Arabic there were
 more instances of UGC than from any other channel except Al Jazeera
 English over the 21 days.
 All eight websites were captured at 6 p.m. (local time for the location of
-their headquarters), for all 21 days. Only five days were analyzed,^{\href{#endnotes}{4}} the same
+their headquarters), for all 21 days. Only five days were analyzed,{\href{#endnotes}{4}} the same
 five random days chosen for the Al Jazeera Arabic analysis. This was due to
 the sheer amount of content on each site. In total, we analyzed the content
 of 2,254 Web pages. The average number of links on each homepage every
@@ -444,7 +759,7 @@ shown to be footage captured by a local news channel with less sophisticated
 video equipment and then distributed by one of the main television
 news agencies to its clients. One of the best clues that a piece of content
 was filmed by a professional was the raw skill of the camera operator. Often,
-professional skills could be identified—such as the way the camera panned
+professional skills could be identified‚Äîsuch as the way the camera panned
 slowly across the action rather than the quick, jerky, or uneven movements
 associated with camera-phone video taken by amateurs. Ultimately, the
 researchers worked as hard as possible to ensure consistent and accurate
@@ -460,11 +775,11 @@ included at the end of the report.)
 We interviewed representatives of all organizations coded in Part I of the
 research with the exception of editors from TeleSur and Al Jazeera Arabic,
 who did not respond to our requests for interview.
-We traveled to two news industry conferences—News Xchange in Marrakech,
+We traveled to two news industry conferences‚ÄîNews Xchange in Marrakech,
 Morocco in November of 2013 and the EastWest Center Media
 Conference in Yangon, Myanmar in March of 2014. These two conferences
-enabled us to reach a wide variety of global editors and journalists—reach
-that would have otherwise been impossible—including the Waziristan
+enabled us to reach a wide variety of global editors and journalists‚Äîreach
+that would have otherwise been impossible‚Äîincluding the Waziristan
 bureau chief of a Pakistani news organization; editors from Singapore,
 Indonesia and the Philippines; and heads of news from Australia, Canada,
 and Japan. We also spent one week interviewing journalists in London,
@@ -486,7 +801,7 @@ on a daily basis. As Richard Porter, controller of BBC World (English),
 explained, ``It has become a central element of the newsgathering process
 now. No question about that.''
 Throughout our sampling period, all channels used content from activist
-groups to report the Syrian conflict.^{\href{#endnotes}{5}} Indeed, for some news organizations
+groups to report the Syrian conflict.{\href{#endnotes}{5}} Indeed, for some news organizations
 Syria was the only story that included any type of UGC, and our interviewees
 emphasized the news organizations' total reliance on content from Syria
 because of the difficulties in using their own correspondents. However, our
@@ -498,7 +813,7 @@ broke. As professional pictures from their own camera crews or news agencies
 appeared on Saturday morning, broadcasters chose to update their
 packages and reports with these, replacing the UGC.
 However, there were also a number of instances when stories ran only
-because there was UGC to provide imagery—for example a story about
+because there was UGC to provide imagery‚Äîfor example a story about
 police brutality in Egypt, which included a secret recording in a police cell.
 
 Many interviewees framed UGC as something to use when nothing else is
@@ -548,7 +863,7 @@ the structural differences between television and the Web explained above.
 Online news needs to be refreshed and updated constantly and has near
 unlimited space in terms of its different Web pages, whereas television fills
 a limited, and immovable amount of time.
-We certainly saw the way that live blogs^{\href{#endnotes}{7}} and topic pages provided opportunities
+We certainly saw the way that live blogs{\href{#endnotes}{7}} and topic pages provided opportunities
 to use UGC in a very different way than television. Live blogs are
 featured on Al Jazeera English, BBC, CNN International, euronews (which
 used an embedded Storify as a form of live blogging), and France 24. FIGURE
@@ -568,14 +883,14 @@ International had topic pages for Syria. FIGURE 2 shows an example of one
 built by CNN International, specifically exploring the refugee experience
 of Syrians.
 
-FIGURE 2: CNN International Topic Page—``Crisis in Syria: The Refugees''
+FIGURE 2: CNN International Topic Page‚Äî``Crisis in Syria: The Refugees''
 TABLE 4, however, shows that the main story types were similar.
 
 
 On the Web, the most common category of news employing UGC was
 ``other.'' During our analysis, the Web ran a number of feature stories, like
 ``Pictures of the Audience Dressed as Doctor Who Characters'' or ``Pictures
-People had Taken During Vacations to North Korea,''^{\href{#endnotes}{9}} that were inundated
+People had Taken During Vacations to North Korea,''{\href{#endnotes}{9}} that were inundated
 with UGC.
 Interestingly, one interviewee argued that although the Web facilitates
 more opportunities to make creative use of UGC, they're not always taken:
@@ -603,9 +918,9 @@ a jaw-dropping sports stunt. In the period sampled, none of these types of
 
 videos appeared online or on air. With the success of sites such as BuzzFeed
 and Upworthy, the power of viral videos to drive traffic has been well documented,
-^{\href{#endnotes}{10}} and many online news sites have a viral video section themselves.
+{\href{#endnotes}{10}} and many online news sites have a viral video section themselves.
 It was, therefore, surprising that this type of content did not feature in our
-sample period.^{\href{#endnotes}{11}}
+sample period.{\href{#endnotes}{11}}
 While the Web can't be directly compared to television, because only five
 days of content were analyzed, when we drilled down to the specific stories
 covered using UGC on television during the sampling frame, similar patterns
@@ -646,10 +961,10 @@ and we asked them to send us our content. That is the type of
 UGC we gather. The type of UGC that we use mostly is the [material]
 which is delivered by Eurovision [News Exchange] and validated
 already. What we don't have yet is a real, dedicated desk that validates
-UGC— let's say, from Syria.
+UGC‚Äî let's say, from Syria.
 \section{When is UGC Used?}
 \begin{enumerate}
-1. UGC was used to tell the story of the Syrian conflict almost
+\item UGC was used to tell the story of the Syrian conflict almost
 every day.
 Thirty-five percent of all the UGC analyzed as part of this research related
 to the Syria conflict (40 percent of the UGC used on television, and 20 percent
@@ -673,7 +988,7 @@ UGC during breaking news events often produces the most dramatic pictures,
 in coverage of the Syrian conflict sometimes a package included up
 to 10 six-second clips from 10 different YouTube channels of white smoke
 rising against a blue sky. One producer admitted honestly:
-I wonder—when all [the audience is] seeing is continuous Syria—if
+I wonder‚Äîwhen all [the audience is] seeing is continuous Syria‚Äîif
 you could almost run the same picture every day and would anyone
 notice? That's what worries me. Lots of footage of exteriors and the
 only way we can tell the story is by using these pictures. I'm telling
@@ -690,7 +1005,7 @@ research expecting almost all uses of UGC to be around Syria. We were
 actually surprised that Syria footage didn't comprise more than 35 percent
 of the UGC analyzed. The main reliance on UGC was around breaking
 news events.
-2. During breaking news stories, UGC fills the gap while news
+\item During breaking news stories, UGC fills the gap while news
 organizations wait for other pictures.
 The yellow column in FIGURE 3 illustrates the amount of UGC used in
 the coverage of the Glasgow helicopter crash. The crash occurred late in
@@ -723,7 +1038,7 @@ wire yet. I don't know how they work, but those 10, 15, 20 minutes
 it took before the pictures showed up on the normal wire we had
 used a picture from this guy from Kiev, [which he had] posted on
 social media.
-3. UGC is used when no other pictures exist.
+\item UGC is used when no other pictures exist.
 As the previous section illustrated, UGC fills a gap before other pictures
 emerge. It also drives stories that otherwise wouldn't be told. During our
 sampled time frame, secretly filmed UGC exposed serious police brutality
@@ -746,13 +1061,13 @@ during our sample period. A citizen journalist in Bangkok took the
 footage during the protests of November/December 2013. As a research
 team, we had noted the absence of any UGC from the Bangkok protests and
 concluded this was likely due to the city's status as an international media
-hub—broadcasters either had their own camera people there or relied on
+hub‚Äîbroadcasters either had their own camera people there or relied on
 the agencies to provide enough content to fill the one to two minutes dedicated
 to this story every day, we suspected. However, when the drone footage
 emerged, the aerial shots were so powerful and entirely distinct from
 the pictures coming from the ground that a number of the broadcasters
 in our study ran them. Drone footage is appearing much more frequently,
-particularly during large-scale protests.^{\href{#endnotes}{12}} As a side note, Scott Pham, who
+particularly during large-scale protests.{\href{#endnotes}{12}} As a side note, Scott Pham, who
 undertook a research study into drone journalism, explained:
 In some ways UGC is the best way to get drone photography because
 of the legal situation around creating it yourself. A lot of organizations
@@ -761,7 +1076,7 @@ might be driving drone journalism in an era where doing it professionally
 is very difficult [because of the regulations that currently
 exist]. In some ways the amateur drone journalism going on might
 be more interesting.
-4. UGC was used as part of news programs dedicated to the Web.
+\item UGC was used as part of news programs dedicated to the Web.
 One trend that has emerged over the last couple of years is 24-hour news
 channels producing programs or segments entirely dedicated to the Web
 and social media. On Al Jazeera English, it is called The Stream, on BBC
@@ -770,7 +1085,7 @@ Sur Le Net. These programs tend to be 15 to 30 minutes long, and focus on
 those topics trending on social media before launching into longer pieces
 of journalism around the subjects. What's notable here is that, where elsewhere
 particular channels might seemingly try to hide the fact that they
-were using UGC—by either failing to label or credit appropriately—these
+were using UGC‚Äîby either failing to label or credit appropriately‚Äîthese
 
 dedicated programs went out of their way to emphasize their use of it. So,
 for example, rather than taking down clips from YouTube and using them in
@@ -784,6 +1099,8 @@ UGC, focused on uploaders, giving them a platform to tell the story of
 the event they had captured from their own perspective. The uploaders
 appeared on screen, and were named in the final credits of the program as
 if they were producers.
+\end{enumerate}
+
 \section{Why is UGC Used?}
 There were eight different reasons given for why UGC is used; some practical,
 some about quality, some editorial, and some relating to the audience.
@@ -806,8 +1123,8 @@ eyes and ears on the ground, and they're able to feed content to you from
 up close. [The footage] can be a lot more personal than maybe [professional
 journalists] would [get] carrying a big camera with them.'' Another editor
 echoed this point, saying, ``It makes it feel real because rather than having
-someone standing in front of a camera—you know, your average white bloke
-in a tie—you have something handheld and jerky… It makes it feel more
+someone standing in front of a camera‚Äîyou know, your average white bloke
+in a tie‚Äîyou have something handheld and jerky‚Ä¶ It makes it feel more
 real and gritty.'' Chris Hamilton, from the BBC, cited the London bombings,
 saying there were lengthy discussions about whether the audience would
 accept the shaky footage taken by people being led to safety through the
@@ -823,7 +1140,7 @@ else.'' Another senior journalist explained how UGC was integrated into
 coverage of the same story:
 We get a lot from Ukraine and it gave us diversity. We would have
 been able to cover it [anyway] because we ultimately put two or three
-teams there in Ukraine—a couple of correspondents and representatives—
+teams there in Ukraine‚Äîa couple of correspondents and representatives‚Äî
 but we really did use UGC for a diversity of voices on the
 ground. This is especially the case if you're a major TV broadcaster
 and your correspondents are tied to the shot 24-7. They're in a live
@@ -832,7 +1149,7 @@ of the time they can't leave that satellite position.
 
 One BBC journalist explained how social media has changed its newsgathering
 techniques. ``A couple of times I've been really, really stuck and I've
-thought, ‘I'll have a look in the World Service contacts [directory],' but I feel
+thought, ‚ÄòI'll have a look in the World Service contacts [directory],' but I feel
 like a failure if I do that. I think it's right that it feels like that because you've
 got to have new voices on air.''
 Other journalists explained how UGC has allowed them to continue the
@@ -844,11 +1161,11 @@ time so it stops being a story, but by using the user-generated content, we
 were able to get some very striking images. It allowed us to explore this
 phenomenon in depth. [The UGC] really brought home what is happening
 on the ground.''
-UGC helped Channel 4 keep what Doyle called a ``war crime''^{\href{#endnotes}{13}} in the
+UGC helped Channel 4 keep what Doyle called a ``war crime''{\href{#endnotes}{13}} in the
 public eye:
 Basically, it's this huge human rights violation. It's a war crime that's
 going on but because it's sporadically happening across the country
-the victims are often smaller in numbers—smaller numbers than
+the victims are often smaller in numbers‚Äîsmaller numbers than
 there were in the chemical attack in August. Therefore, it doesn't get
 picked up in the same way, but you can comment and really bring
 home what is happening on the ground.
@@ -880,7 +1197,7 @@ unsafe, but you can't go because you can't get visas. I mean, if it was
 easier to film in these places we wouldn't be using social media; we'd
 be filming there ourselves.
 Another editor, from the other side of the world, agreed. ``It's good for breaking
-news and it's good for a first response, but I still—every time—would
+news and it's good for a first response, but I still‚Äîevery time‚Äîwould
 prefer to have my people in the field.''
 \section{Conclusions}
 User-generated content is used when other images are not available, as the
@@ -889,7 +1206,7 @@ conflict demonstrates. The way that UGC was integrated during coverage of
 
 the Glasgow helicopter crash and the razing of Lenin's statue in Kiev during
 the Ukrainian protests suggests that it is often employed as a stopgap before
-news agency pictures emerge—interestingly, even if the professional ones
+news agency pictures emerge‚Äîinterestingly, even if the professional ones
 are less dramatic. During interviews, even though some journalists spoke
 passionately about the benefits UGC provides in terms of authenticity, a
 diversity of voices, and news angles, there was a recurring argument that
@@ -960,7 +1277,7 @@ riots, and elections. As one high-level news manager explained, ``We get
 UGC mostly from news services. Stuff that comes in independently would
 be more domestic than international.''
 \begin{enumerate}
-1. Content is located at the scene of a breaking news event.
+\item Content is located at the scene of a breaking news event.
 A number of interviewees referenced the piece of footage that emerged
 around the murder of Lee Rigby on the streets of Woolwich in London
 in May of 2013. The footage, which features one of Rigby's killers talking
@@ -990,7 +1307,7 @@ many connected to hard news events. In addition, Al Jazeera Arabic has its
 own very successful UGC portal called Sharek. According to research carried
 out by Juliette Harkin and colleagues, at the beginning of the Syrian
 conflict, the Sharek portal was receiving ``more than 200 videos per day and
-up to 1,000 videos on Fridays.''^{\href{#endnotes}{14}} Its success led to the launch of the organization's
+up to 1,000 videos on Fridays.''{\href{#endnotes}{14}} Its success led to the launch of the organization's
 Mubasher channel. Mubasher, the Arabic word for live, features
 continuous live streams, many of which are filmed by citizen journalists on
 the ground. During our coding of Al Jazeera Arabic, a large number of live
@@ -1015,7 +1332,7 @@ storytelling. They were adamant that this was the key over sitting back, simply
 thinking that a general call to action after a news event would result in
 high-quality submissions.
 
-3. Newsrooms find content shared on social networks.
+\item Newsrooms find content shared on social networks.
 Many interviewees discussed how their newsrooms have shifted from dismissing
 the notion that social networks can be used as a newsgathering tool,
 to becoming increasingly reliant on them. As one digital editor explained:
@@ -1051,21 +1368,21 @@ Tweetdeck, and is fully loaded with lists of verified sources to give the
 BBC a leg up on breaking stories. Other newsrooms rely on the @Storyful-
 Pro Twitter account that pushes out verified breaking news alerts sourced
 from Twitter.
-4. News agencies play a role.
+\item News agencies play a role.
 One of the main findings from this research is the role news agencies play
-in the workflow that surrounds UGC in all broadcast newsrooms.^{\href{#endnotes}{15}} For all
+in the workflow that surrounds UGC in all broadcast newsrooms.{\href{#endnotes}{15}} For all
 organizations we interviewed there is a heavy, if understated, reliance on
 the main television news agencies AP and Reuters. All the television-based
 organizations we interviewed were subscribers to one or both of these agencies.
 There are other smaller agencies competing in this space, such as AFP
 TV; the television arm of the French news agency Agence France Presse;
 and Ruptly, the agency arm of the Russian broadcaster RT.
-Storyful,^{\href{#endnotes}{16}} a social media news agency which only discovers and verifies
+Storyful,{\href{#endnotes}{16}} a social media news agency which only discovers and verifies
 UGC, has acquired a significant client base in a short period. Also important
 are content exchange platforms, such as the Eurovision News Exchange
 operated by the European Broadcasting Union (EBU). This platform primarily
-enables the members of the EBU—Europe's public broadcasters—to
-exchange content between each other.^{\href{#endnotes}{17}} It also allows Reuters TV and AP to
+enables the members of the EBU‚ÄîEurope's public broadcasters‚Äîto
+exchange content between each other.{\href{#endnotes}{17}} It also allows Reuters TV and AP to
 distribute content, including UGC. The Eurovision News Exchange is also
 a client of Storyful on behalf of its members and distributes content discovered,
 verified, and cleared through them. Many of the public broadcasters
@@ -1084,17 +1401,17 @@ is very clearly labeled as such, perhaps illustrating just how few journalists
 read dopesheets properly!)
 For other newsrooms, the role agencies play is fully appreciated. As one
 social media editor explained, ``My personal take is that if something happens
-we would be one of lots of news organizations wading in, going, ‘Can
+we would be one of lots of news organizations wading in, going, ‚ÄòCan
 we use your picture?' whereas actually that is what Storyful does for us.''
 As well as simply integrating content that the agencies distribute, some
 newsrooms that discover content themselves will actually send it to the
-agency. ``We do get clients flagging stuff up to us, [saying], ‘Have you seen
-this?'… We want to be belt and braces certain of something before we use
+agency. ``We do get clients flagging stuff up to us, [saying], ‚ÄòHave you seen
+this?'‚Ä¶ We want to be belt and braces certain of something before we use
 it, [which is why certain newsrooms will] give [UGC] to one of the agencies
 and see what they can do with it.''
 These platforms have always been an important source of international
 news coverage. The news agencies are often the first into conflict zones or at
-breaking news events and the last to leave—and broadcasters have relied on
+breaking news events and the last to leave‚Äîand broadcasters have relied on
 this for years. Nothing has changed in this regard when it comes to UGC.
 The agencies' clients or partners demand it, so much so that they have had
 to rebalance and learn how to source and verify UGC to the required standards.
@@ -1145,6 +1462,9 @@ That said, both agencies were clear that at no point do they think that UGC
 replaces their own work. As the head of output at one explained, ``UGC is
 an extra tool in the box, and it supplements the work that we're doing, but
 at no point does it ever replace it.''
+\end{enumerate}
+
+
 \section{Staffing Around UGC}
 The question of whether all journalists in a newsroom are responsible for
 monitoring breaking news on social networks and finding videos and pictures,
@@ -1167,14 +1487,14 @@ news desk are monitoring social media all the time for tip-offs, pictures,
 videos, sources. We also have the iReport, so every morning
 in our editorial [meeting] we have an iReport representative at the
 table and they may say, ``Oh, we're getting really fabulous iReports.''
-… They can be stills, video, blogs, so it's totally integrated for us in
+‚Ä¶ They can be stills, video, blogs, so it's totally integrated for us in
 two ways. We can call out to our iReporters because we've got thousands
 of them now. We also monitor social media for breaking news
 [using DataMinr].
 The biggest dedicated UGC unit within the news industry is the BBC's UGC
 Hub. The desk is staffed by around 20 journalists covering the whole day in
 shifts, with a peak staffing level of five journalists during the day working on
-regional, national, and international stories across all BBC output—television,
+regional, national, and international stories across all BBC output‚Äîtelevision,
 radio, and online. This desk is based in the BBC's main newsroom, and
 one of its team members sits on the central desk that coordinates all the
 BBC's news output, while the remainder of the team sits at the edges of the
@@ -1236,7 +1556,7 @@ Not that they'll be thrilled to hear that.''
 Certainly, where there is no dedicated UGC or social media desk, the online
 teams tend to be tasked to handle user-generated content. As one digital
 editor said, ``Let's say a building collapses or a fire happens. The TV people
-will come over to the online team saying, ‘Can you see if there's any footage
+will come over to the online team saying, ‚ÄòCan you see if there's any footage
 out there? Or any photos we can use?' '' But as another digital editor conceded,
 ``It used to be that [when a story broke] the online team would pop
 up like meerkats saying, Look there's a photo! Now everyone in the newsroom
@@ -1263,8 +1583,8 @@ do this every day are able to hone their skills and expertise in very important
 ways. At the BBC, which has its dedicated UGC Hub, Chris Hamilton,
 the social media editor, explained that while many people in the newsrooms
 know how to spot fake Twitter accounts, that skill isn't universal.
-He explained, ‘[The Hub] is still a go to, certainly for anything that is truly
-amateur, and especially on Syria.” He also discussed how skills are being
+He explained, ‚Äò[The Hub] is still a go to, certainly for anything that is truly
+amateur, and especially on Syria.‚Äù He also discussed how skills are being
 disseminated across different desks. ``There are pockets of expertise [across
 the newsroom], partly because people work on the Hub and then they go
 off and work elsewhere.''
@@ -1279,12 +1599,12 @@ senior editors were quick to emphasize the importance of verification in
 relation to user-generated content, as well as their fears about using material
 that turned out to be incorrect. Many people discussed famous examples
 of news organizations being faked by hoaxes, and their concerns about
-it happening to them.^{\href{#endnotes}{18}} As one senior news manager stated, ``I think the biggest
+it happening to them.{\href{#endnotes}{18}} As one senior news manager stated, ``I think the biggest
 issue for us is around verification because that's where our reputation
 lies. If we end up putting stuff out which is wrong in any way, fabricated in
 any way, then our necks are on the line.''
 There was, however, little awareness about the specific techniques and processes
-associated with verifying UGC.^{\href{#endnotes}{19}} People knew it needed to be done
+associated with verifying UGC.{\href{#endnotes}{19}} People knew it needed to be done
 but there was an acknowledgement from journalists on news desks that
 they didn't feel like they knew enough about how to do verification properly.
 One very honest description of an editorial meeting by a senior editor
@@ -1299,7 +1619,7 @@ There was still a sense from many managers and senior editors (who don't
 work with UGC every day) that with journalistic experience comes a gut
 instinct that enables you to know whether something can be trusted. There
 was also a sense that verifying a piece of content is something that is black
-and white—something is either true or false, accurate or inaccurate.
+and white‚Äîsomething is either true or false, accurate or inaccurate.
 When pushed to describe specific technical checks that journalists could
 run on social content, very few interviewees displayed any knowledge of the
 different ways geo-positioning and timestamps work on the different social
@@ -1319,7 +1639,7 @@ the job, however, talked about it very differently.
 Verification Processes
 The AP has a clear process whereby the uploader of the content has to be
 verified separately from the events being shown in the footage. Similarly,
-Storyful verifies the source, date, and location of each video separately—
+Storyful verifies the source, date, and location of each video separately‚Äî
 labeling each element as either confirmed, corroborated, or unconfirmed.
 This information is then shared with clients. Information about the checks
 carried out by these two agencies are detailed on dopesheets, allowing their
@@ -1383,9 +1703,9 @@ technology. There was only one senior manager who discussed the need for
 training people on how to make both editorial and technical assessments of
 content sourced from the Internet.
 
-And while there was agreement that skills have improved slightly—for
+And while there was agreement that skills have improved slightly‚Äîfor
 example, more people know how to do a Google Reverse Image search or
-know how to identify fake Twitter accounts—there was also an acknowledgement
+know how to identify fake Twitter accounts‚Äîthere was also an acknowledgement
 that there is quite a lot of ignorance about ways to verify content
 systematically. As always with digital skills, it is impossible to know what
 you don't know, and many people do not know what is possible, whether it's
@@ -1400,7 +1720,7 @@ There is a significant reliance on the agencies for verification, and the majori
 of newsrooms do not run additional checks. As one foreign editor said:
 AP says that when they put that material out from YouTube, they
 have done the same verification process that they would do with
-writing a wire story […so] we wouldn't do an additional verification
+writing a wire story [‚Ä¶so] we wouldn't do an additional verification
 on that, because if we did that, we'd do it for every single story they
 put out.
 The strength of the agencies is their networks on the ground. Both the AP
@@ -1428,9 +1748,9 @@ newsrooms were shared with the audience, either on television or online.
 The only mention of verification was the phrase, ``These pictures cannot be
 independently verified,'' which is heard very often when UGC is aired. We
 heard a great deal of soul-searching about the idea.
-On the one hand the AP has ``abolished the phrasing, ‘This cannot be independently
+On the one hand the AP has ``abolished the phrasing, ‚ÄòThis cannot be independently
 verified,' '' and a report published by the BBC Trust in the summer
-of 2013 advised that it should not be used on screen or in script^{\href{#endnotes}{20}} (although
+of 2013 advised that it should not be used on screen or in script{\href{#endnotes}{20}} (although
 we saw some occurrences during our sample period). In other newsrooms,
 however, it is a standard description, especially when referencing content
 from Syria.
@@ -1479,7 +1799,7 @@ they believed it to be accurate.
 Newsroom Pressure
 Newsroom members regularly cited issues relating to the pressures they're
 under to publish content before all verification checks are complete in our
-interviews. One senior editor at the AP said, “I would always rather be last
+interviews. One senior editor at the AP said, ‚ÄúI would always rather be last
 to a story than first to be wrong to a story, and, you know, last to be right
 with UGC is not a dishonorable place to be.''
 While many shared this view, the pressure agencies face is slightly different
@@ -1498,11 +1818,11 @@ the competition, and they're running with stuff, and so we have to be
 really steadfast and put our foot down. Even though producers know
 they should be verifying it, I can see them being overtaken by the
 pressure to get it on air.
-The pressure newsrooms feel they are under to ``tweet first, verify later''^{\href{#endnotes}{21}}
+The pressure newsrooms feel they are under to ``tweet first, verify later''{\href{#endnotes}{21}}
 is a symptom of a news environment where a scoop today lasts 20 seconds
 at most. You can no longer stay first for long, and as many commentators
 have discussed, journalists are the ones who are obsessed with the notion;
-audiences rarely notice.^{\href{#endnotes}{22}}
+audiences rarely notice.{\href{#endnotes}{22}}
 Conclusions
 Overall, verification is the main area of concern when it comes to the topic of
 user-generated content. However, despite this anxiety, very few newsrooms
@@ -1534,7 +1854,7 @@ and context to differentiate themselves. Research by the Pew Research
 Center in 2012 revealed that worldwide, YouTube is becoming a major platform
 for viewing news. In 2011 and early 2012, the most searched term of
 the month on YouTube was a news-related event five out of 15 months,
-according to the company in early 2012.^{\href{#endnotes}{23}} With audiences increasingly seeking
+according to the company in early 2012.{\href{#endnotes}{23}} With audiences increasingly seeking
 out eyewitness footage on social media, news organizations have to distinguish
 themselves. As one journalist admitted, ``People get [news-related
 pictures and videos] on Twitter anyway, without the verification, so if you're
@@ -1547,7 +1867,7 @@ phrase that peppered our interviews. Most journalists, however, now know
 that copyrights exist with uploaders even after they share it on a social network
 and understand the need to seek specific permission to use someone's
 content. Still, there's a difference between what people know and what
-people do.^{\href{#endnotes}{24}}
+people do.{\href{#endnotes}{24}}
 Certainly the pressure of rolling news means that there are more situations
 on 24-hour news channels where a senior editor will make the decision to
 run with pictures without securing permission (knowing they will ``sort it
@@ -1562,9 +1882,9 @@ that this is a difficult space. The terms and conditions of the different social
 networks mean their users have agreed that their content can be embedded
 on different sites, but a number of journalists expressed disquiet about publishing
 someone's Twitpic on their site via an embed code, since that person
-will not even know it has happened.^{\href{#endnotes}{25}} In two separate interviews, people discussed
+will not even know it has happened.{\href{#endnotes}{25}} In two separate interviews, people discussed
 the ethics of embedding selfies women had taken for Cancer Research
-UK's ``no-makeup selfies'' campaign.^{\href{#endnotes}{26}} The pictures were public because they
+UK's ``no-makeup selfies'' campaign.{\href{#endnotes}{26}} The pictures were public because they
 
 had been posted on Twitter, but publishing them on a news website seemed
 to change the context considerably for the journalists to whom we spoke.
@@ -1606,7 +1926,7 @@ with UK-based organizations. This UGC scoop won ITN the UK's Royal
 Television Society award for Scoop of the Year for 2013. In announcing the
 award the jury noted, ``When ITN broadcast the shocking pictures of the
 murderer of Lee Rigby filmed by a bystander on a mobile phone, the team
-were ahead of the pack.''^{\href{#endnotes}{27}} While no one interviewed could cite the exact figure
+were ahead of the pack.''{\href{#endnotes}{27}} While no one interviewed could cite the exact figure
 the British broadcaster paid for that exclusive, editors at different newsrooms
 talked about how it had impacted their newsgathering practices in
 terms of thinking about sending producers to a breaking news event ready
@@ -1630,8 +1950,8 @@ in our region tend to be a bit murky.'' In Sweden, legal responsibility lies
 with the overall editor of the program, who would be personally liable if a
 mistake was made.
 In Australia, our interviews demonstrated that ``there is a widespread belief
-that if you are reporting anything as a news story—even if it's about a viral
-video of a dog on a skateboard—then you have a legal right to use short
+that if you are reporting anything as a news story‚Äîeven if it's about a viral
+video of a dog on a skateboard‚Äîthen you have a legal right to use short
 pieces of third-party content without payment [or permission], as long as
 the sources are credited.'' In fact, as Alan Sunderland, head of editorial policy
 for ABC Australia, explained, ``You would have the capacity to use it
@@ -1688,7 +2008,7 @@ Producers regularly using social media for newsgathering expressed the
 difficulties of balancing the need for watertight legal protection with the
 informal nature of social media. As one explained, ``If you are chatting with
 someone via DM [Twitter direct messaging] and suddenly you're saying,
-‘What is your email address?' and ‘Can I send you this form and can you
+‚ÄòWhat is your email address?' and ‚ÄòCan I send you this form and can you
 print it out, sign it, and scan it back?' That's just not going to happen.''
 The AP and Reuters explained that they always need permission granted
 before they will distribute content, but admitted that in very rare cases they
@@ -1702,10 +2022,10 @@ illustrate, journalists know they have to seek permission, but the pressures
 of the job often conflict with the realities of people's lives when they are
 caught up in a news event. When uploader Marcjan Maloon didn't reply
 to the repeated requests of any journalists for four days, someone had to
-remind them that it was unlikely he would even be able to reply—as ``there
+remind them that it was unlikely he would even be able to reply‚Äîas ``there
 was still no power in Tacloban City.''
 Another significant problem is that uploaders themselves often don't know
-their own rights, and don't understand enough about the news business—
+their own rights, and don't understand enough about the news business‚Äî
 particularly archive, distribution, and syndication elements. ``We've got to
 make it so clear to them because [copyright] is not something that people
 always understand,'' said one journalist.
@@ -1720,7 +2040,7 @@ just as an insurance policy in terms of verification, but also in terms of right
 As someone from one of the agencies argued, ``I think part of the [decision to
 run with pictures before getting clearance] is a risk calculation on the broadcasters'
 part, because they know that we're working on getting the clearance,
-so they're thinking, ‘The clearance will come. Let's just run it.' ''
+so they're thinking, ‚ÄòThe clearance will come. Let's just run it.' ''
 \section{Embedding}
 As the quotes in this section's introduction illustrate, permissions around
 embedding social content are cause for some concern. While the terms and
@@ -1740,14 +2060,14 @@ you know what, you might just take that risk a bit more.''
 \section{Payment}
 Paying for UGC isn't new. A senior editor recounted the following story
 from an earlier career moment: ``I remember a ferry disaster, and I phoned
-up the producer and said, ‘If you can find anybody who had a video camera
+up the producer and said, ‚ÄòIf you can find anybody who had a video camera
 
-on board that ship, then buy the material.' I said, ‘You need a contract from
+on board that ship, then buy the material.' I said, ‚ÄòYou need a contract from
 them because otherwise we don't own the copyright, but the contract can
 be written on the back of a cigarette packet.'''
 And while most people reiterated that very few uploaders want payment,
 there was also a sense that any disputes could be cleared up after the event.
-As one former producer admitted, ``Actually the rule has always been, ‘We've
+As one former producer admitted, ``Actually the rule has always been, ‚ÄòWe've
 always paid if it's a good enough picture, so if it comes to that we'll pay afterwards,
 after the event'.''
 Another producer from a broadcaster in another country said that they
@@ -1766,14 +2086,14 @@ Other journalists talked about the increasingly blurred line between citizen
 journalists and freelancers, and the ethical implications of that. A managing
 editor explained that more people are asking for money, because more
 licensing companies are willing to pay. He explained, ``Now you'll suddenly
-get, ‘Well so and so will pay me' or ‘Somebody will pay me x.' Well, fine,
+get, ‚ÄòWell so and so will pay me' or ‚ÄòSomebody will pay me x.' Well, fine,
 you'll have to go to them because we won't pay. You're not trained, you're
 not a journalist, you're not a freelancer and you're not someone we want to
 take responsibility for.''
 
 A foreign editor also talked about the increasing number of people who are
 traveling to Syria and then upon return get in contact with news organizations.
-``They get in touch with us and say, ‘I went in somewhere, you didn't
+``They get in touch with us and say, ‚ÄòI went in somewhere, you didn't
 commission us, we're out again and here's what we've got.' Now, those are
 still user-generated, but they are trying to make money out of that usergenerated
 content.'' Editors discussed their serious concern about taking
@@ -1790,14 +2110,14 @@ While the agency Storyful does license UGC, it has very strict guidelines
 about not licensing videos that show gratuitous violence and death, or videos
 that have been captured by people putting themselves in danger or
 breaking the law. This is not the case for all licensing companies.
-One producer noted another issue—that uploaders often don't understand
+One producer noted another issue‚Äîthat uploaders often don't understand
 the term ``exclusive'':
 Those agencies are a bit screwy. There was definitely a Woolwichrelated
 photo where we got stung by an agency. It was one that was
 a wide shot of the whole street scene, but you couldn't see any of the
 detail. We had originally said to the guy, to the individual, ``Are you
 okay for us to use it?'' He said, ``Yeah, whatever.'' And then a day or so
-later, we got an invoice for £350. But we've got a screen grab of [our
+later, we got an invoice for ¬£350. But we've got a screen grab of [our
 Twitter conversation with him]. They [the agency] are still there say
 ing it's fine to use it. So in that situation we're not going to pay [an
 agency] for it. We took it down but we didn't pay for it. It's a bit of a
@@ -1807,9 +2127,9 @@ but it is worth recognizing here the emergence of different payment
 models. Some agencies buy the copyright content outright, and resell it to
 different broadcasters. Other agencies and publishers are using revenue
 share models, whereby no money changes hands at the beginning of the
-agreement, but when a piece of UGC generates views on a player—whether
+agreement, but when a piece of UGC generates views on a player‚Äîwhether
 on YouTube or a publisher's own player, which is surrounded by advertising
-and has pre-roll ads before the video starts—the uploader, the licensing
+and has pre-roll ads before the video starts‚Äîthe uploader, the licensing
 agent, and the publisher come to a revenue-share arrangement. This is
 clearly more appropriate for viral videos of talented babies or funny cats,
 than it is for hard-news content.
@@ -1841,7 +2161,7 @@ when KTLA distributed the content to its networks, which played and
 played the video. ``He didn't have kind words for the media. He may have
 pioneered citizen journalism but he feels that he was swallowed up and spat
 out by CNN and the like, which, he said gave him little credit and no compensation
-of his contribution to history.''^{\href{#endnotes}{28}}
+of his contribution to history.''{\href{#endnotes}{28}}
 It could be argued that uploaders are becoming more astute and are certainly
 in the scramble for permissions that occur when compelling content
 is shared on social networks. Journalists are sometimes forced to justify
@@ -1872,15 +2192,15 @@ ground. They take out the contents without even bothering to look for a
 name inside, she infers. Those journalists who work with UGC every day
 would argue that they certainly don't behave in this way. But one digital editor
 did describe the mindset many journalists have, saying, ``I think people
-tend to see it as, not ‘How can I nick it?' but ‘How can I use that on my [television
-news bulletin or website]?' without actually thinking, ‘How do we use
+tend to see it as, not ‚ÄòHow can I nick it?' but ‚ÄòHow can I use that on my [television
+news bulletin or website]?' without actually thinking, ‚ÄòHow do we use
 it in a collaborative way?'''
 The current method of journalists seeking permission via messages on
 Twitter, YouTube, Facebook, and Instagram is laborious, legally dubious,
 and can be stressful for people who are caught up in the middle of a breaking
 news event. There are ideas circulating about embedding a breaking
 news license into social networks so that if users opt in their content can
-be used for free by news organizations for 24 hours.^{\href{#endnotes}{29}} Any subsequent use,
+be used for free by news organizations for 24 hours.{\href{#endnotes}{29}} Any subsequent use,
 either in longer packages, documentaries, or within archives would require
 
 specific permission from the uploader. In addition, if organizations wanted
@@ -1938,7 +2258,7 @@ asked us why they should be crediting content. This attitude
 shocked us, but was summed up very nicely by someone who works in a
 rights department, who described the cultural tensions that exist between
 legal teams and producers. ``Journalists just see [our focus on copyright] as,
-‘You're stopping me. I am toiling at the coal face of truth here and you're
+‚ÄòYou're stopping me. I am toiling at the coal face of truth here and you're
 putting in all these things to make my life difficult.' So there is a bit of a cultural
 thing there.''
 Our interviews revealed many anecdotes about the difficulties of getting
@@ -1953,7 +2273,7 @@ Overall, the broadcasters credited only 16 percent of the UGC broadcast on
 television during the three-week period we sampled. But this percentage is
 an average and hides some real differences between broadcasters.
 
-TABLE 6: Who Added Credits to the Content?^{\href{#endnotes}{30}}
+TABLE 6: Who Added Credits to the Content?{\href{#endnotes}{30}}
 
 As these numbers demonstrate, there are clear differences by broadcaster.
 Fifty-three percent of the content broadcast by CNN International was
@@ -1999,7 +2319,7 @@ In early May of 2014 the Herald Sun, a newspaper owned by News Corp,
 purchased images of a street brawl between Kerry Packer and his friend. So
 worried were they that they might not be credited by other news organizations
 the Herald Sun employees burned on their own watermarks in a way
-that caused quite a lot of discussion online.^{\href{#endnotes}{31}} This was not a case involving
+that caused quite a lot of discussion online.{\href{#endnotes}{31}} This was not a case involving
 UGC, but shows how watermarking is seen as one of the only ways
 to ensure credit. This has, for instance, long been the practice in Pakistan
 where news channels regularly burn their logos onto all of their output for
@@ -2047,7 +2367,7 @@ barriers; the pressure of breaking news situations; concerns about
 the screen clutter caused by crediting; and unease about crediting certain
 organizations, especially within the Syrian context.
 \begin{enumerate}
-1. Ignorance
+\item Ignorance
 It was quite evident that many journalists and news managers don't understand
 why crediting UGC is necessary and certainly don't consider it a
 legal requirement. As one very senior manager declared, ``We don't credit
@@ -2081,7 +2401,7 @@ was: ``I don't honestly know whether we have guidelines.'' Considering the
 number of pieces of content that weren't credited, there is certainly a disconnect
 between what newsrooms think they should be doing, what managers
 think is happening, and what is actually happening.
-2. Role of the Agencies
+\item Role of the Agencies
 One of the standout findings from our research is how reliant newsrooms
 are on news agencies for discovering, verifying, and clearing the rights for
 using UGC. However, for many newsrooms, when a piece of UGC enters
@@ -2111,7 +2431,7 @@ secure permission, one of the senior editors explained:
 room with [the uploader], we have no prior relationship with that
 person, so all our social media videos carry ``Material was obtained
 from a social media website...'' It is a disclaimer. The source is ``Social
-media website.'' … So for Reuters, our whole reputation depends on
+media website.'' ‚Ä¶ So for Reuters, our whole reputation depends on
 our reporters and our camera people being on the spot or us having
 a close relationship with the broadcaster who was on the spot. We
 don't have that with the vast majority of UGC that we use, so we can't
@@ -2130,7 +2450,7 @@ breaking news situation, you are much more likely to think about giving
 them credit. When you are removed from that process, and the pictures
 simply look like any other vision in your gallery, the fact that it's UGC gets
 lost and the related processes that should be followed get lost as well.
-3. Newsroom Processes
+\item Newsroom Processes
 There are many explanations why credits aren't added, but the reality of
 outputting news demonstrates how difficult it currently is.
 As one producer explained, ``I think it's a combination of workflow, technology,
@@ -2152,8 +2472,8 @@ without additional considerations for UGC ingest. They are designed so the
 metadata, or dopesheet, travels with the content to journalists' desks. This
 has been particularly important for organizations with a large amount of
 output channels, such as the BBC. However, the MAM developers have not
-yet found a failsafe way to ensure that metadata and restrictions—so crucial
-for UGC—always accompany the content.
+yet found a failsafe way to ensure that metadata and restrictions‚Äîso crucial
+for UGC‚Äîalways accompany the content.
 
 The BBC's MAM system, Jupiter, has a simple traffic light system to indicate
 to journalists what content they can and cannot use. Green indicates BBC
@@ -2163,8 +2483,8 @@ from outside the BBC that can be used, but subject to checks. This includes
 all content received from the agencies, as well as UGC.
 One intake editor at the BBC highlighted a piece of UGC that showed students
 attacking Prince Charles' car during protests in London in 2010. He
-noted that any journalist who really wants to use content can do so—even
-if it's marked red in the Jupiter system—admitting, ``You can do as much
+noted that any journalist who really wants to use content can do so‚Äîeven
+if it's marked red in the Jupiter system‚Äîadmitting, ``You can do as much
 metadata and marking [as you like], but if there's someone really determined
 and they want to use that material, they can.''
 Another journalist at the BBC also noted how the traffic light color disappears
@@ -2203,13 +2523,13 @@ instance, has been exploring ways with its developers to transport metadata
 and burn crediting directly into the video through its transcoders; there is
 awareness at the BBC that more needs to be done technically with MAM
 systems to help journalists avoid metadata errors.
-4. Screen Clutter
+\item Screen Clutter
 The aesthetics of crediting was a recurring theme. The attitude of certain
 editors came up often, including this quote: ``We don't credit, it's not
 our style.''
 One producer explained, ``A lot of senior editors don't like the way a name
 under a photo looks. If the name is really long, they think it looks messy.
-They'll say, ‘Can't you just make it look short like AFP/YouTube?' ''
+They'll say, ‚ÄòCan't you just make it look short like AFP/YouTube?' ''
 Another senior manager asked whether crediting has any point when it
 appears and disappears so quickly from a TV screen.
 
@@ -2226,7 +2546,7 @@ Audience research is clearly needed here. Very little is known about how
 audiences respond to the aesthetics of television broadcasts. Do onscreen
 credits upset the viewer? Ultimately, however, this discussion about aesthetics
 completely ignores the legal implications of this issue.
-5. The Complexities of Syria
+\item The Complexities of Syria
 Certainly content from Syria caused the most discomfort in terms of crediting,
 even from people who were the biggest advocates of the practice. Our
 interviewees explained that the increasingly elaborate logos watermarked
@@ -2241,6 +2561,7 @@ what's happened.''
 Another agreed: ``Mentioning the channel doesn't mean anything for the
 audience. You can say it's Shaam News Network; it's not relevant anymore,
 because they don't want the credits, they just want to air their video.''
+\end{enumerate}
 
 \section{How to Credit}
 Even when journalists want to credit, additional complications can hinder
@@ -2294,7 +2615,7 @@ is always a very low priority. There was also an acceptance that if uploaders
 were unhappy that they weren't credited, or wanted payment, this could be
 sorted out after the event. As one former journalist admitted:
 You are in a massive sausage factory, under massive time pressures,
-and there are fewer and fewer and fewer people to do the job… You
+and there are fewer and fewer and fewer people to do the job‚Ä¶ You
 don't have time for anything, let alone worrying what somebody's
 username is. You don't have time to think whether you should credit
 
@@ -2319,7 +2640,7 @@ ruling was in favor of the content creator, not the news organization publishing
 the content. In November of 2013, a federal judge in the Southern
 District of New York declared that Agence France-Presse and Getty
 Images had infringed the copyright of professional photographer Daniel
-Morel.^{\href{#endnotes}{33}} This came after the agency distributed eight photographs of the
+Morel.{\href{#endnotes}{33}} This came after the agency distributed eight photographs of the
 Haiti earthquake in 2010 to its clients; Morel had originally distributed
 them via Twitpic, a service that allows users to post images to Twitter easily.
 A jury awarded Morel \$1.22 million in damages for the infringement.
@@ -2363,7 +2684,7 @@ And there was definitely no agreement about what constitutes best practice.
 There was a general reluctance for onscreen labels, with more in favor of
 including the fact that the pictures were sourced from the Web in the spoken
 script. There was also an awareness that transparency with the audience
-is crucial, but uncertainty about how best to provide it.^{\href{#endnotes}{34}}
+is crucial, but uncertainty about how best to provide it.{\href{#endnotes}{34}}
 
 As part of the analysis, we examined whether each piece of UGC was
 described as content produced by someone unrelated to the newsroom (i.e.,
@@ -2471,7 +2792,7 @@ to inform the audience about the activist groups that were uploading this
 content to YouTube.
 Al Jazeera made a conscious editorial decision to label videos from Syria as
 ``YouTube.com/Activist Video.'' As one of its presenters argued, ``We used to
-just say, ‘YouTube.com.' Now it's ‘YouTube.com/Activist Video.' That was a
+just say, ‚ÄòYouTube.com.' Now it's ‚ÄòYouTube.com/Activist Video.' That was a
 
 conscious decision made. This is activist video. Take it. We will explain it as
 best we can, but remember where it came from and I think that was a very
@@ -2492,7 +2813,7 @@ or other states.
 \section{How to Label UGC}
 There is no consistency across the industry about how to label UGC. The
 phrase amateur video appears to be losing favor. ``Now we don't use [the
-label] ‘amateur video' because, frankly, a lot of it isn't amateur and I just
+label] ‚Äòamateur video' because, frankly, a lot of it isn't amateur and I just
 don't think that it encourages people. If people have captured the most
 compelling shots of a story and it's running everywhere, I don't think we
 should call them amateur.''
@@ -2595,7 +2916,7 @@ permission, there was certainly an understanding by most that, when
 working with uploaders from certain countries, not seeking permission is
 the right thing to do. One BBC journalist working on a photo gallery from
 Iran told us, ``As someone from the BBC it really raises a person's profile if
-they've posted the image, by me saying, ‘Hello, can I use it? I'm from the
+they've posted the image, by me saying, ‚ÄòHello, can I use it? I'm from the
 BBC.' So in that instance the Persian service advised that it's better to just
 use it.''
 
@@ -2621,7 +2942,7 @@ on the ground, particularly in areas where it would be impossible to gain
 access. The case of the 18-year-old boy who died in Syria, who had been
 taking photographs on a camera supplied by Reuters, was mentioned as a
 warning to all news organizations about the responsibilities of the industry
-to protect and support citizen and accidental journalists.^{\href{#endnotes}{35}}
+to protect and support citizen and accidental journalists.{\href{#endnotes}{35}}
 \section{Privacy}
 Facebook was mentioned as the platform that causes the most editorial
 discussions around whether to use content, particularly after death. Some
@@ -2691,7 +3012,7 @@ who find themselves unexpectedly in a breaking news event. A journalist
 who works daily with UGC talked about the difficulties of building a relationship
 with someone via a 140-character tweet. ``We don't actually have
 a policy specifically around [social newsgathering] except to be as polite
-as possible. You see people just hammering [uploaders]. ‘Call me. Call me.
+as possible. You see people just hammering [uploaders]. ‚ÄòCall me. Call me.
 Here's my number.' What we try to do is be softer about it, but it's still the
 same. You're still reaching out to them.''
 We therefore asked journalists whether they were given any guidance or
@@ -2714,7 +3035,7 @@ content once it has been discovered, verified, and cleared by someone else
 in their newsroom, or by an agency. Throughout our interviews, those who
 worked regularly with uploaders had very different ideas and views about
 appropriate practice. For example, someone from an agency argued, ``I think
-a big ethical issue is—what are the rights of the owner of the content, not
+a big ethical issue is‚Äîwhat are the rights of the owner of the content, not
 
 just the rights of the content itself? What are their rights to privacy? What
 are their rights to smart advice upfront? What are their rights to amend or
@@ -2733,7 +3054,7 @@ Editors from Reuters discussed how there are ``different clusters of broadcaster
 who have different viewpoints on what they can and cannot run or
 what their audience wants to see,'' with some countries being very conservative
 and others happily broadcasting pictures that would be shocking to a
-British audience accustomed to regulation by Ofcom.^{\href{#endnotes}{36}}
+British audience accustomed to regulation by Ofcom.{\href{#endnotes}{36}}
 In many countries television news is governed by regulatory bodies, which
 have clear guidelines about the types of pictures that can be shown. However,
 the same regulations don't exist for online news sites, although many
@@ -2749,7 +3070,7 @@ some of that footage, but acknowledged the need to make it difficult to find.
 So Channel 4 News, for example, has designed clickable online barriers
 to reduce the likelihood of children stumbling across graphic images. As
 its Web editor explained, ``That was a sea change [for us] because previously
-the lawyers at ITN and senior editorial people would just say, ‘No way,
+the lawyers at ITN and senior editorial people would just say, ‚ÄòNo way,
 you can't do that, someone will complain.' Things have shifted because of
 social media.''
 Deborah Rayner from CNN agreed:
@@ -2766,7 +3087,7 @@ graphic images in a context when they are often already available online.
 When British news bulletins broadcast the footage filmed by a passerby
 after the murder of the soldier Lee Rigby in Woolwich, the BBC, ITV, and
 the UK communications regulatory body, Ofcom, received roughly 800
-complaints.^{\href{#endnotes}{37}} However, as one of our interviewees discussed, it is unlikely
+complaints.{\href{#endnotes}{37}} However, as one of our interviewees discussed, it is unlikely
 that a traditional news camera would have been able to capture this type
 of footage:
 
@@ -2792,7 +3113,7 @@ I think we need to build an ethics code. It's like the Wild West out
 there and I don't think we've addressed it properly. So everyone's
 doing their little bit in different ways and I think actually what would
 be really good would be all organizations coming together and really
-thinking of a sensible way of treating UGC… I think some organizations
+thinking of a sensible way of treating UGC‚Ä¶ I think some organizations
 use UGC in a very different way from others. Some people
 would take a photo from a Facebook page without asking for it and
 other organizations wouldn't. So therefore it's very good for the public
@@ -2808,12 +3129,12 @@ the specific trauma that can come as a result of working with eyewitness
 content day in and day out. As one journalist admitted, ``I now purposefully
 avoid the most traumatic, dramatic content because I have been so affected
 by it. I know it's my job, [but] it's a difficult line to cross. I feel like it's my
-responsibility… But at the same time I have to protect myself from it.'' The
+responsibility‚Ä¶ But at the same time I have to protect myself from it.'' The
 interviewee went on to describe the impact UGC can have on a journalist:
 I was really upset all the time and I just felt helpless basically. I didn't
 really sleep that well and I was anxious at work. Each morning, getting
 up and thinking, ``My God, I know what the day has ahead for
-me—blood, children, death, whatever it is.'' I just didn't want to do it.
+me‚Äîblood, children, death, whatever it is.'' I just didn't want to do it.
 It was a kind of constant anxiety.
 Some described the way wearing headphones heightened their reactions to
 disturbing content, and the tension caused by opening video files on You-
@@ -2864,7 +3185,7 @@ to anxiety, depression, PTSD, or alcohol consumption.'' The research also
 
 demonstrated that frequency, rather than duration of exposure to images of
 graphic violence is more emotionally distressing to journalists working with
-user-generated content.^{\href{#endnotes}{38}}
+user-generated content.{\href{#endnotes}{38}}
 The BBC, because of its number of journalists working with UGC every day
 on the Hub, takes vicarious trauma very seriously. As its manager, Chris
 Hamilton, explained:
@@ -2888,7 +3209,7 @@ working on them.
 As well as these discussions about the impact of viewing distressing images,
 others talked about the impact of regularly talking with people who are traumatized.
 Those working on UGC desks are, by the very nature of their jobs,
-often dealing with people who have just witnessed something newsworthy—
+often dealing with people who have just witnessed something newsworthy‚Äî
 violent protest, a natural disaster, an explosion, or terrorist incident.
 
 Talking to people who have just seen such events causes its own trauma. To
@@ -2930,7 +3251,7 @@ Another issue is the pace at which the social media landscape is shifting.
 As one journalist mentioned, ``I'm not sure how useful set training pieces
 would be for us because everything is changing so quickly. I mean a lot of
 the stuff that we're training people on is really focused on practical steps:
-‘Do this and do this and do this.' Those steps change so often that we kind
+‚ÄòDo this and do this and do this.' Those steps change so often that we kind
 of need to come up with a way that if there are resources, they need to be
 almost live.''
 \section{Conclusions}
@@ -2963,7 +3284,7 @@ which can only be a good thing.
 Deborah Rayner of CNN raised one particularly interesting point, however,
 along a similar vein: the impact of trauma on the overall news agenda. She
 argued, ``I think actually the bigger worry is that when you see more horror
-and gore… people are desensitized. You start to lack empathy, and as a
+and gore‚Ä¶ people are desensitized. You start to lack empathy, and as a
 journalist or editor you don't support a story just because [you] don't understand
 the real human impact of it, because [you've] just seen it so often.''
 
@@ -3010,7 +3331,7 @@ for integrating UGC into news output like live blogs and topic pages.
 The interviews we carried out bought the quantitative data alive, lending
 a vital explanatory layer to the findings. Journalists who work with UGC
 every day were not surprised by our results, and were able to describe in
-detail the processes through which UGC has to travel—providing necessary
+detail the processes through which UGC has to travel‚Äîproviding necessary
 context to topline figures. It was noticeable that the very low levels of
 crediting and labeling did shock everyone with whom we spoke.
 On many of the other topics, however, there wasn't consensus. We were regularly
@@ -3030,7 +3351,7 @@ to UGC.
 When we started our research, we interviewed 10 senior managers from
 national newsrooms at a large broadcast news conference, and the answers
 we heard suggested that UGC is always fully verified, that permission is
-always sought, and crediting is systematically given on screen.^{\href{#endnotes}{39}} If this
+always sought, and crediting is systematically given on screen.{\href{#endnotes}{39}} If this
 research had not included a quantitative element, or included interviews
 with journalists who work with UGC every day, the conclusions we could
 have drawn would have been entirely different. The lack of knowledge
@@ -3039,7 +3360,7 @@ today have never had to face the reality of trying to lead a bulletin
 with a picture uploaded to Twitter. The specific skills required to work with
 UGC have been developed by certain journalists over the past five years
 through necessity. The complexity of these skills are not yet necessarily recognized
-at a managerial level.^{\href{#endnotes}{40}}
+at a managerial level.{\href{#endnotes}{40}}
 Our overall conclusion from this research is that news managers need to
 understand the full implications of integrating UGC, and do so quickly. We
 say this particularly with regard to the impact on their staff, their audiences,
@@ -3072,7 +3393,7 @@ run a full analysis on his or her digital history, as well as confirm
 the date and the location of a piece of video, a photo, a Twitter or
 Facebook status, or a blog post. Certainly the output editors who
 make the final decision about using a piece of UGC need to understand
-that verification is a process—not a true/false distinction—and
+that verification is a process‚Äînot a true/false distinction‚Äîand
 they need to know which questions to ask of the producers who have
 undertaken the process.
 4. News organizations' reliance on agencies to discover and verify
@@ -3087,7 +3408,7 @@ know they are indeed working with UGC and can add additional
 labels to ensure maximum transparency for the audience.
 5. An academic study by Professor Anthony Feinstein and colleagues
 (to be published in the Journal of the Royal Society of Medicine very
-soon)^{\href{#endnotes}{41}} compares self-reported psychological measures of journalists
+soon){\href{#endnotes}{41}} compares self-reported psychological measures of journalists
 who work on domestic desks with journalists who work on UGC
 desks and frequently in conflict zones. The main feature to emerge
 from this study was that frequency of exposure to UGC, independently
@@ -3131,9 +3452,9 @@ showed that audiences cared.
 We would also like to expand this research by studying whether similar patterns
 appear within newspaper organizations. Large newspaper sites are
 investing heavily in online video, and the role UGC plays in this context is
-important to understand in greater detail.^{\href{#endnotes}{42}}
+important to understand in greater detail.{\href{#endnotes}{42}}
 We end this report with some suggestions and recommendations. These are
-designed to be conversation starters—hopefully a catalyst for some industry-
+designed to be conversation starters‚Äîhopefully a catalyst for some industry-
 wide meetings where journalists, representatives from social networks,
 lawyers, and educators can come together to discuss the reality of the situation,
 and work toward taking steps to improve current practices.
@@ -3149,7 +3470,7 @@ the recommendations. It is important to note that the Online News Association
 is supporting a group of journalists who have convened around the
 issue of social newsgathering. Led by Fergus Bell and Eric Carvin of the AP,
 the group is facilitating industry-wide discussion about many of the issues
-raised within this report.^{\href{#endnotes}{43}}
+raised within this report.{\href{#endnotes}{43}}
 While more audience research is certainly needed, and will feed into these
 discussions, it is important that these conversations start sooner rather
 than later. Look what has happened in five years. Imagine how a report 10
@@ -3244,252 +3565,6 @@ and labeling content, wording calls to action, and vicarious
 trauma prevention.
 \end{itemize}
 
-\chapter{Endnotes}
-
-1 Anthony de Rosa, ``Disconnect Between Traditional Media and UGC,'' 12 Aug. 2013,
-www.antderosa.com/2013/11/30/the-disconnect-between-traditional-media-and-ugc/. \\
-2 See http://quernstone.com/archives/2010/11/user-generated.html and http://rooreynolds.
-com/2009/05/07/alternatives-to-ucg/ for two discussions about the widely shared opinion that
-the phrase UGC is unpopular and actually unhelpful. \\
-3 C. Wardle and A. Williams, ``ugc@thebbc: Understanding its Impact Upon Contributors, Noncontributors
-and BBC News,'' AHRC Knowledge Exchange, 2008, www.bbc.co.uk/blogs/legacy/
-knowledgeexchange/cardiffone.pdf.\\
-4 The five days we analyzed were: November 27, 2013; November 30, 2013; December 2, 2013;
-December 5, 2013; and December 11, 2013. The website capture software failed on three of the 40
-occasions that are included in this sample. For those days, the previous day was analyzed.\\
-5 This report analyzes the role of social media in the Syrian conflict and demonstrated the scale
-of activist networks uploading content. See M. Lynch, D. Freelon, and S. Aday, ``Syria's Socially
-Mediated Civil War,'' United States Institute of Peace, Jan. 2014, www.usip.org/ publications/syrias-
-socially-mediated-civil-war.\\
-6 Average refers to the mean average.\\
-7 N. Thurman and N. Newman, ``The Future of Breaking News Online? A Study of Live Blogs
-Through Surveys of Their Consumption, and of Readers' Attitudes and Participation,'' Journalism
-Studies, 2014, http://dx.doi.org/10.1080/1461670X.2014.882080.\\
-8 The UGC video was actually submitted directly to GuardianWitness, the UGC initiative from
-the Guardian. The video was so dramatic that it was syndicated to a number of different news
-organizations, including the BBC. It is also worth noting that the video was not described as UGC
-or credited.\\
-9 Two non-news features on CNN International included very high numbers of UGC.\\
-These were not included in this table as we wanted to compare stories that appeared on more
-than one channel.\\
-10 A nice roundup of recent discussion about this subject appears as part of Neiman Journalism
-Lab's weekly update here: www.niemanlab.org/2013/12/this-week-in-review-questions-onjournalists-
-handling-of-nsa-files-and-the-value-of-viral-content/.\\
-11 The only content that could be described in this category was a two-minute roundup showcasing
-online responses to Miley Cyrus' appearance at the American Music Awards in front of a giant
-lip-syncing cat. It showed the audience's responses, which appeared in tweets, Vine videos, and
-pictures posted to social networks.\\
-Amateur Footage: A Global Study of User-Generated Content in TV and Online News Output
-132\\
-12 The Economist, ``Drones Often Make News. They Have Started Gathering it, Too,'' 29 Mar. 2014,
-www.economist.com/news/international/21599800-drones-often-make-news-they-havestarted-
-gathering-it-too-eyes-skies?fsrc=scn/tw/te/pe/eyesintheskies.\\
-13 The role of social media, in terms of documenting human rights abuses, is discussed in this article:
-C. Koettl, ``The YouTube War: Citizen Videos Revolutionize Human Rights Monitoring in Syria,''
-MediaShift, 18 Feb. 2014.\\
-14 J. Harkin, et al., ``Deciphering User Generated Content in Transitional Societies: A Syria Coverage
-Case Study,'' Internews Center for Innovation and Learning, 2012, www.internews.org/sites/
-default/files/resources/ InternewsWPSyria_2012-06-web.pdf.\\
-15 This is discussed is detail by Chris Paterson in his chapter, ``Global Television News Services,'' in
-Media in Global Context, ed. A. Sreberney-Mohammadi et al. (London: Arnold, 2003), 145–160.\\
-16 Storyful was acquired by News Corp in December of 2013. See ``NewsCorp Acquires Social News
-Agency Storyful,'' NewsCorp Press Release, 20 Dec. 2013, http://newscorp.com/2013/12/20/
-news-corp-acquires-social-news-agency-storyful/.\\
-17 EBU members, http://www3.ebu.ch/members, accessed 7 May 2014.\\
-18 There have been a number of articles about the rise of the hoax, and simultaneous interest by the
-audience when these are debunked. See www.buzzfeed.com/charliewarzel/2014-is-the-year-ofthe-
-viral-debunk and www.buzzfeed.com/tomphillips/14-incredible-but-fake-viral-imagesand-
-the-twitter-account.\\
-19 In January of 2014, The Verification Handbook was published by the European Journalism Centre. It
-was edited by Craig Silverman and includes detailed explanations of how to verify digital content. It
-is available at http://verificationhandbook.com.\\
-20 BBC Trust (2012) and BBC Trust (2013).\\
-21 This is the title of a study by Nicola Bruno, published in 2011.\\
-22 M. Ingram, ``The Future of News Isn't About Breaking News Scoops, It's About Credibility and
-Trust,'' GigaOm, 7 May 2014, https://gigaom.com/2014/05/07/the-future-of-media-isnt-aboutbreaking-
-news-scoops-its-about-credibility-and-trust/.\\
-23 ``YouTube & News: A New Kind of Visual Journalism,'' Pew Research Center: Project for Excellence
-in Journalism, 2012, www.journalism.org/analysis_report/youtube_news.\\
-24 There is also a significant problem caused by the lack of legal precedent. One of the most confusing
-elements is that within YouTube's Terms and Conditions, downloading video is prohibited.
-However, it is in the interest of the platform that high-quality video to be seen on news broadcasts
-as it might drive traffic back to the site, and therefore increase view counts and revenue. This leads
-to confusion around what is legal and illegal.\\
-25 The ethics of using content published on social networks was raised after BuzzFeed published a
-series of tweets sent by women about the clothes they had been wearing when they were sexually
-abused. It led to a number of discussions about the ethics of embedding content that was not
-originally created with the intent of ending up on a news site. This article by Slate provides a
-useful roundup of the debate. www.slate.com/articles/technology/technology/2014/03/twitter_journalism_private_lives_public_speech_how_reporters_can_ethically.html.\\
-26 http://scienceblog.cancerresearchuk.org/2014/03/25/nomakeupselfie-some-questionsanswered/,
-accessed 12 May 2014.\\
-27 www.rts.org.uk/winners-tja, accessed 12 May 2014.\\
-28 S. Myers, ``How Citizen Journalism has Changed Since George Holliday's Rodney King Video,''
-Poynter, 3 Mar. 2011, www.poynter.org/latest-news/top-stories/121687/how-citizenjournalism-
-has-changed-since-george-hollidays-rodney-king-video/.\\
-29 M. Little, ``A Public License for Online News Video,'' Storyful blog, 16 May 2013, http://blog.
-storyful.com/2013/05/16/a-public-license-for-online-news-video.\\
-30 Final checks against the data included in the first phase of this report highlighted a couple of
-discrepancies. We apologize for that and can ensure these numbers are correct.\\
-31 J. Guillame, ``33 Hilarious Reactions to NewsCorp's Insane Watermarking of Packer Punch-up,''
-BuzzFeed, 5 May 2014, www.buzzfeed.com/jennaguillaume/reactions-to-news-corpswatermark-
-on-packer-punchup-pics.\\
-32 A dopesheet is metadata that agencies send to accompany a video package that describes the
-content of the video in written form. It includes a written shotlist, storyline, dates, restrictions on
-use, and crediting requirements.\\
-33 See www.hoffmanlawfirm.org/Publications/1-16-13-PRESS-RELEASE.docx, accessed 12 May 2014.\\
-34 Jenny Hauser writes about the importance of transparency regarding who is uploading content
-and their motivations for doing so here: http://blog.storyful.com/2014/03/30/a-place-forprofessional-
-journalism-in-the-age-of-the-citizen-journalist.\\
-35 This event was discussed by The New York Times in its Lens Blog; Reuters issued a reply a few days
-later. See http://lens.blogs.nytimes.com/2014/03/13/questions-about-news-photographersin-
-syria-arise-after-freelancers-death/?_php=true&_type=blogs&_r=0 and http://petapixel.
-com/2014/03/16/reuters-responds-accusations-leveled-agency-new-york-times/.\\
-36 Ofcom is the independent regulator and competition authority for the UK communications
-industries, www.ofcom.org.uk/.\\
-37 J. Halliday, ``Woolwich Attack Video: TV Broadcast Prompts 800 Complaints,'' Guardian, 23 May
-2013, www.theguardian.com/media/2013/may/23/woolwich-attack-video-tv-complaints.\\
-38 A. Feinstein, B. Audet, and E. Waknine, ``Witnessing Images of Extreme Violence: A Psychological
-Study of Journalists in the Newsroom,'' Journal of the Royal Society of Medicine, forthcoming 2014.\\
-39 It is worth noting that all but one of our interviewees was from a news organization not included in
-our quantitative analysis, and the answers given by Take Kusaba of NHK mirrored the use of UGC
-we encountered during our research.\\
-40 Research carried out by City University in the United Kingdom involved interviewing journalists
-about the type of technological support they would like to help them gather news using social
-networks. Discovery and verification technology was rated highly. See S. Schifferes, et al.,
-``Identifying and Verifying News Through Social Media: Developing a User-centred Tool for
-Professional Journalists,'' Digital Journalism, 2014.\\
-41 A. Feinstein, et al., 2014.\\
-42 This article explains the main aspects of the transition to digital, focusing on online video. P.
-Grabowicz, ``The Transition to Digital Journalism,'' Berkeley School of Journalism, 30 Mar. 2014,
-http://multimedia.journalism.berkeley.edu/tutorials/digital-transform/video.\\
-43 An introduction to the main concerns of the group are detailed in this article: ``Social
-Newsgathering: Charting an Ethical Course,'' Online News Association, 6 Mar. 2014, http://
-journalists.org/2014/03/06/social-newsgathering-charting-an-ethical-course/.\\
-
-\chapter{Further Reading}
-
-K. Anderson, ``Clear Editorial Goals Essential to Effective UGC Strategy,''
-22 Mar. 2013, www.kbridge.org/clear-editorial-goals-essential-toeffective-
-ugc-strategies/.\\
-BBC Trust, ``A BBC Trust Report on the Impartiality and Accuracy of
-the BBC's Coverage of the Events Known as the ‘Arab Spring,''' 2012,
-http://downloads.bbc.co.uk/bbctrust/assets/files/pdf/our_work/
-arabspring_impartiality/arab_spring.pdf.\\
-BBC Trust, ``A BBC Trust Report on the Impartiality and Accuracy of
-the BBC's Coverage of the Events Known as the ‘Arab Spring': Follow Up
-Report,'' 2013, http://downloads.bbc.co.uk/bbctrust/assets/files/pdf/
-our_work/arabspring_impartiality/follow_up.pdf.\\
-C. Beckett and R. Mansell, ``Crossing Boundaries: New Media and
-Networked Journalism,'' Communication, Culture & Critique, 1:1
-(2008): 92–104.\\
-N. Bruno, ``Tweet First, Verify Later? How Real-time Information is
-Changing the Coverage of Worldwide Crisis Events,'' Reuters Institute
-Fellowship Paper: University of Oxford, 2011, https://reutersinstitute.
-politics.ox.ac.uk/fileadmin/documents/Publications/fellows_papers/2010-2011/TWEET_FIRST_VERIFY_LATER.pdf.\\
-
-D.L. Cade, ``Reuters Responds to Accusations Leveled at the Agency in
-the New York Times Lens Blog,'' PetaPixel, 16 Mar. 2014, http://petapixel.
-com/2014/03/16/reuters-responds-accusations-leveled-agency-newyork-
-times/.\\
-E. Carvin and F. Bell, ``Social Newsgathering: Charting an Ethical
-Course,'' Online News Association, 6 Mar. 2014, http://journalists.
-org/2014/03/06/social-newsgathering-charting-an-ethical-course/.\\
-M. Coddington, ``This Week in Review: Questions on Journalists'
-Handling of NSA files, and the Value of Viral Content,'' Nieman Journalism
-Lab, 6 Dec. 2013, www.niemanlab.org/2013/12/this-week-in-reviewquestions-
-on-journalists-handling-of-nsa-files-and-the-value-ofviral-
-content/.\\
-Anthony de Rosa, ``Disconnect Between Traditional Media and UGC,'' 12
-Aug. 2013, www.antderosa.com/2013/11/30/the-disconnect-betweentraditional-
-media-and-ugc/.\\
-The Economist, ``Drones Often Make News. They Have Started
-Gathering it, Too,'' 29 Mar. 2014, www.economist.com/news/
-international/21599800-drones-often-make-news-they-have-startedgathering-
-it-too-eyes-skies?fsrc=scn/tw/te/pe/eyesintheskies.\\
-J. Estrin and K. Shoumali, ``Questions About News Photographers in Syria
-Arise After Freelancer's Death,'' New York Times Lens Blog, 13 Mar. 2014,
-http://lens.blogs.nytimes.com/2014/03/13/questions-about-newsphotographers-
-in-syria-arise-after-freelancers-death/.\\
-A. Feinstein, B. Audet, and E. Waknine, ``Witnessing Images of Extreme
-Violence: A Psychological Study of Journalists in the Newsroom,'' Journal
-of the Royal Society of Medicine, forthcoming 2014.\\
-
-P. Grabowicz, ``The Transition to Digital Journalism,'' Berkeley School of
-Journalism, 30 Mar. 2014, http://multimedia.journalism.berkeley.edu/
-tutorials/digital-transform/video.\\
-J. Guillame, ``33 Hilarious Reactions to NewsCorp's Insane Watermarking
-of Packer Punch-up,'' BuzzFeed, 5 May 2014, www.buzzfeed.com/
-jennaguillaume/reactions-to-news-corps-watermark-on-packerpunchup-
-pics.\\
-M.T. Hänska-Ahy and R. Shapour, ``Who's Reporting the Protests?''
-Journalism Studies, 13:1 (2012): 1–17.\\
-J. Harkin, et al., ``Deciphering User Generated Content in Transitional
-Societies: A Syria Coverage Case Study,'' Internews Center for Innovation
-and Learning, 2012, www.internews.org/sites/default/files/resources/
-InternewsWPSyria_2012-06-web.pdf.\\
-J. Hauser, ``A Place for Professional Journalism in the Age of the
-Citizen Journalist,'' Storyful blog, 30 Mar. 2014, http://blog.storyful.
-com/2014/03/30/a-place-for-professional-journalism-in-the-age-ofthe-
-citizen-journalist.\\
-A. Hermida and N. Thurman, ``A Clash of Cultures: The Integration of
-User-generated Content Within Professional Journalistic Frameworks at
-British Newspaper Websites,'' Journalism Practice 2(3) (2008): 343–356.
-A. Hess, ``Is All of Twitter Fair Game for Journalists?,'' Slate, 19 Mar. 2014,
-www.slate.com/articles/technology/technology/2014/03/twitter_journalism_private_lives_public_speech_how_reporters_can_ethically.html.\\
-A.M. Jönnson and H. Örnebring, ``User-generated Content and the News:
-Empowerment of Citizens or an Interactive Illusion?'' Journalism Practice,
-5:2 (2011): 127–144.\\
-
-C. Koettl, ``The YouTube War: Citizen Videos Revolutionize Human Rights
-Monitoring in Syria,'' MediaShift, 18 Feb. 2014.\\
-M. Little, ``A Public License for Online News Video,'' 16 May 2013,
-http://blog.storyful.com/2013/05/16/a-public-license-for-onlinenews-
-video.\\
-M. Lynch, D. Freelon, and S. Aday, ``Syria's Socially Mediated Civil War,''
-United States Institute of Peace, Jan. 2014, www.usip.org/ publications/
-syria-s-socially-mediated-civil-war.\\
-S. Myers, ``How Citizen Journalism has Changed Since George Holliday's
-Rodney King Video,'' Poynter, 3 Mar. 2011, www.poynter.org/latest-news/
-top-stories/121687/how-citizen-journalism-has-changed-since-georgehollidays-
-rodney-king-video/.\\
-C. Paterson, ``Global Television News Services,'' in Media in Global
-Context, eds. A. Sreberney-Mohammadi et al. (London: Arnold, 2003),
-145–160.\\
-S. Paulussen and P. Ugille, ``User Generated Content in the Newsroom:
-Professional and Organizational Constraints on Participatory Journalism,''
-Westminster Papers in Communication and Culture, Vol. 5:2 (London:
-University of Westminster, 2008), 24–41. https://www.westminster.ac.uk/_data/assets/pdf_file/0005/20021/003WPCC-Vol5-No2-Paulussen_Ugille.pdf.\\
-``YouTube & News: A New Kind of Visual Journalism,'' Pew Research
-Center: Project for Excellence in Journalism, 2012, www.journalism.org/
-analysis_report/youtube_news.\\
-T. Phillips, ``14 Incredible But Fake Viral Images and the Twitter Account
-Debunking the Picspammers,'' BuzzFeed, 10 Feb. 2014, www.buzzfeed.
-com/tomphillips/14-incredible-but-fake-viral-images-and-thetwitter-
-account.\\
-R. Reynolds, ``Alternatives to UGC,'' 7 May 2009,
-www.rooreynolds.com/2009/05/07/alternatives-to-ucg/.\\
-J. Sanderson, ``User Generated Content,'' 26 Nov. 2010,
-www.quernstone.com/archives/2010/11/user-generated.html.\\
-S. Schifferes, et al., ``Identifying and Verifying News Through Social Media:
-Developing a User-centred Tool for Professional Journalists,'' Digital
-Journalism, 2014, http://dx.doi.org/10.1080/21670811.2014.892747>.\\
-C. Silverman, ed., ``The Verification Handbook,'' 2014,
-http://verificationhandbook.com.\\
-N. Thurman and N. Newman, ``The Future of Breaking News Online?
-A Study of Live Blogs Through Surveys of Their Consumption, and of
-Readers' Attitudes and Participation,'' Journalism Studies, 2014,
-http://dx.doi.org/10.1080/1461670X.2014.882080.\\
-C. Wardle and A. Williams, ``ugc@thebbc: Understanding its Impact Upon
-Contributors, Non-contributors and BBC News,'' AHRC Knowledge
-Exchange, 2008, www.bbc.co.uk/blogs/legacy/knowledgeexchange/
-cardiffone.pdf.\\
-C. Wardle and A. Williams, ``Beyond User-generated Content: A
-Production Study Examining the Ways in Which UGC is Used at the BBC,''
-Media, Culture & Society, 2010, 781–799.\\
-C. Warzel, ``2014 is the Year of the Viral Debunk,'' BuzzFeed, 23 Jan. 2014,
-www.buzzfeed.com/charliewarzel/2014-is-the-year-of-theviral-
-debunk.\\
-
 \chapter{About the Authors}
 Claire Wardle has a Ph.D. in Communication from the Annenberg School
 for Communication at the University of Pennsylvania. She started her career
@@ -3504,7 +3579,7 @@ www.clairewardle.com | @cwardle
 
 
 Sam Dubberley has over ten years experience in broadcast news. He is an
-independent media researcher and adviser—working on a variety of media
+independent media researcher and adviser‚Äîworking on a variety of media
 projects. He was head of the Eurovision News Exchange from 2010 to 2013,
 managing the world's largest exchange of television news content. He was a
 bulletin editor for Bloomberg Television.
@@ -3517,3 +3592,22 @@ on a number of different research projects, including a recent
 examination of gender and representation on BBC Local radio.
 
 @beteprown
+
+
+%%
+% The back matter contains appendices, bibliographies, indices, glossaries, etc.
+
+
+
+\backmatter
+
+
+%\theendnotes
+%\printbibliography
+
+
+
+%\printindex
+
+\end{document}
+
